@@ -1,0 +1,10 @@
+<ul class="nav nav-list">
+	<li class="nav-header">Categories</li>
+	<% $.each(categories, function(i, category){ %>
+		<li>
+			<a href="javascript://" data-category="<%= category.BBusId %>">
+				<%= category.BName %> 
+			</a>
+		</li>
+	<% }) %>
+</ul>
