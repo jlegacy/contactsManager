@@ -1,10 +1,13 @@
 <ul class="nav nav-list">
-	<li class="nav-header">Categories</li>
+	<li class="nav-header">Company</li>
 	<% $.each(categories, function(i, category){ %>
-		<li>
+		<li class="businessHeader">
 			<a href="javascript://" data-category="<%= category.BBusId %>">
 				<%= category.BName %> 
 			</a>
+		</li>
+		<li class="business">
+		<%== can.view.render('views/businessView.ejs', {business: category}) %>
 		</li>
 	<% }) %>
 </ul>

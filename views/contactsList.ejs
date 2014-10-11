@@ -1,6 +1,6 @@
-<ul class="clearfix">
+<ul class="clearfix" nav-list>
 <% for (var j = 0; j < contacts.length; j++){%> 
-<li class="contact span8">
+<li class="contact">
 		<%== can.view.render('views/contactView.ejs', {contact: contacts[j]}) %>
 		</li>
 	<% } %>
