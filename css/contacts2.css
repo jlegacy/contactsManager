@@ -238,6 +238,12 @@ width: 679px;
 	margin-bottom: 0;
 }
 
+.business_dialog{
+position:relative;
+width:200px;
+height:200px;
+}
+
 .business form label {
 	float: left;
 	padding-top: 5px;
@@ -245,9 +251,11 @@ width: 679px;
 	width: 60px;
 }
 
+.ui-autocomplete { height: 100px; overflow-y: auto; overflow-x: auto; width: 100px;}   
+
 .business form input {
 	margin-left: 10px;
-	margin-bottom: 0;
+	float: left;
 }
 
 .business label {
@@ -467,6 +475,13 @@ h1 {
     margin: 2px 0px 2px 2px;
     float: left;
 }
+
+  .ui-widget-header,.ui-state-default, ui-button{
+            background:#b9cd6d;
+            border: 1px solid #b9cd6d;
+            color: #FFFFFF;
+            font-weight: bold;
+         }
 
 /* Top navigation CSS Style Rule */
 #top-Nav {

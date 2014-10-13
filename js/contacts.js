@@ -1,5 +1,68 @@
 (function () {
 
+	var availableStates = [
+		"AL",
+		"AK",
+		"AS",
+		"AZ",
+		"AR",
+		"CA",
+		"CO",
+		"CT",
+		"DE",
+		"DC",
+		"FM",
+		"FL",
+		"GA",
+		"GU",
+		"HI",
+		"ID",
+		"IL",
+		"IN",
+		"IA",
+		"KS",
+		"KY",
+		"LA",
+		"ME",
+		"MH",
+		"MD",
+		"MA",
+		"MI",
+		"MN",
+		"MS",
+		"MO",
+		"MT",
+		"NE",
+		"NV",
+		"NH",
+		"NJ",
+		"NM",
+		"NY",
+		"NC",
+		"ND",
+		"MP",
+		"OH",
+		"OK",
+		"OR",
+		"PW",
+		"PA",
+		"PR",
+		"RI",
+		"SC",
+		"SD",
+		"TN",
+		"TX",
+		"UT",
+		"VT",
+		"VA",
+		"VI",
+		"WA",
+		"DC",
+		"WV",
+		"WI",
+		"WY",
+	];
+
 	function LoadBusiness(data) {
 		var category = can.route.attr('category') || "all";
 		$('#filter').html(can.view('views/filterView.ejs', {
@@ -53,6 +116,20 @@
 		$('#create').slideUp();
 	}
 
+	function SetUpBusinessEditMask() {
+		//Set Up Phone Mask on All Phone Numbers//
+		var dateBoxes = $("input[name='BPhone1']");
+		dateBoxes.mask("(999) 999-9999");
+
+		var dateBoxes = $("input[name='BPhone2']");
+		dateBoxes.mask("(999) 999-9999");
+
+		var stateAutoComplete = $("input[name='BState']");
+		stateAutoComplete.autocomplete({
+			source : availableStates
+		});
+	}
+
 	function ShowAddBusiness() {
 
 		var data = {};
@@ -68,6 +145,10 @@
 		$('#createBusiness').append(x);
 		$('#createBusiness').slideDown();
 
+		$('.businessButtonBar').hide();
+
+		SetUpBusinessEditMask();
+	
 	}
 
 	function ShowAddUser() {
@@ -261,74 +342,48 @@
 		});
 	}
 
+	function UpdateBusiness(element) {
+		var form = element.closest('form');
+
+		var x = new Parsley(form);
+		var valid = x.validate();
+
+		if (valid) {
+			data = can.deparam(form.serialize());
+			data.BPhone1 = data.BPhone1.replace(/\D/g, '');
+			data.BPhone2 = data.BPhone2.replace(/\D/g, '');
+
+			UpdateBusinessServer(data, function (values, response) {
+				$.growl({
+					title : "RoloMax",
+					message : "Business Updated..",
+					style : "notice"
+				});
+			});
+		}
+	}
+
+	function DeleteBusiness(element) {
+		var data;
+
+		var x = element.closest('li').find('input[name="BBusId"]').val();
+		var y = element.closest('li');
+		data = {
+			Business : x
+		};
+		DeleteBusinessServer(data, function (values, response) {
+			y.remove();
+			$.growl({
+				title : "RoloMax",
+				message : "Business Deleted..",
+				style : "notice"
+			});
+		});
+	}
+
 	$(document).ready(function () {
 
 		var storeData = $('#storedData')[0];
-
-	/*	var availableStates = [
-			"AL",
-			"AK",
-			"AS",
-			"AZ",
-			"AR",
-			"CA",
-			"CO",
-			"CT",
-			"DE",
-			"DC",
-			"FM",
-			"FL",
-			"GA",
-			"GU",
-			"HI",
-			"ID",
-			"IL",
-			"IN",
-			"IA",
-			"KS",
-			"KY",
-			"LA",
-			"ME",
-			"MH",
-			"MD",
-			"MA",
-			"MI",
-			"MN",
-			"MS",
-			"MO",
-			"MT",
-			"NE",
-			"NV",
-			"NH",
-			"NJ",
-			"NM",
-			"NY",
-			"NC",
-			"ND",
-			"MP",
-			"OH",
-			"OK",
-			"OR",
-			"PW",
-			"PA",
-			"PR",
-			"RI",
-			"SC",
-			"SD",
-			"TN",
-			"TX",
-			"UT",
-			"VT",
-			"VA",
-			"VI",
-			"WA",
-			"DC",
-			"WV",
-			"WI",
-			"WY",
-		]; */
-		
-		var availableStates = ["AL","AK","AS"]
 
 		$.ajaxPrefilter(function (options, orig, xhr) {
 
@@ -375,8 +430,12 @@
 
 		$("body").delegate("#businessSave", "click", function () {
 			var form = $('#createBusiness').find('form');
-			var values = can.deparam(form.serialize());
-			CreateBusinessServer(values, function (result, response) {
+			var data = can.deparam(form.serialize());
+			
+			data.BPhone1 = data.BPhone1.replace(/\D/g, '');
+			data.BPhone2 = data.BPhone2.replace(/\D/g, '');
+			
+			CreateBusinessServer(data, function (result, response) {
 				$('#businessCreate').slideUp();
 				HideAddBusiness();
 				$.growl({
@@ -456,29 +515,6 @@
 			});
 		});
 
-		$("body").delegate("#filter .inputEdit", "change", function () {
-
-			form = $(this).closest('form');
-
-			var x = new Parsley(form);
-			var valid = x.validate();
-
-			if (valid) {
-				data = can.deparam(form.serialize());
-				data.BPhone1 = data.BPhone1.replace(/\D/g, '');
-				data.BPhone2 = data.BPhone2.replace(/\D/g, '');
-
-				UpdateBusinessServer(data, function (values, response) {
-					$.growl({
-						title : "RoloMax",
-						message : "Business Updated..",
-						style : "notice"
-					});
-				});
-			}
-
-		});
-
 		$("body").delegate("#users .inputEdit", "change", function () {
 			var form = $(this).closest('form');
 			data = can.deparam(form.serialize());
@@ -555,24 +591,52 @@
 			LoadBusiness(response);
 
 			//Set Up Phone Mask on All Phone Numbers//
-			var dateBoxes = $("input[name='BPhone1']");
-			dateBoxes.mask("(999) 999-9999");
-
-			var dateBoxes = $("input[name='BPhone2']");
-			dateBoxes.mask("(999) 999-9999");
+			SetUpBusinessEditMask();
 			
-			var stateAutoComplete = $("input[name='BState']");
-			 stateAutoComplete.autocomplete({
-			source: availableStates
-    });
-
-			// update perfect scrollbar
-			jQuery('.scrollbar-vista').scrollbar({
-				"showArrows" : true,
-				"type" : "advanced"
-			});
+			$(".updateBusinessButton").button({
+			icons : {
+				primary : "ui-icon-gear",
+				secondary : "ui-icon-triangle-1-s"
+			}
 		});
 
+		$(".deleteBusinessButton").button({
+			icons : {
+				primary : "ui-icon-gear",
+				secondary : "ui-icon-triangle-1-s"
+			}
+		});
+
+		
+
+		
+		$(".updateBusinessButton").click(function (event) {
+			event.preventDefault();
+			UpdateBusiness($(this));
+		});
+
+		$(".deleteBusinessButton").click(function (event) {
+			event.preventDefault();
+			$("#MessageConfirm").dialog({
+				buttons : {
+					"Confirm" : function () {
+						DeleteBusiness($(this));
+						$(this).dialog("close");
+					},
+					"Cancel" : function () {
+						$(this).dialog("close");
+					}
+				}
+			});
+
+		});
+		// update perfect scrollbar
+		jQuery('.scrollbar-vista').scrollbar({
+			"showArrows" : true,
+			"type" : "advanced"
+		});
+		
+		});
 	});
 
 })();
