@@ -265,6 +265,71 @@
 
 		var storeData = $('#storedData')[0];
 
+	/*	var availableStates = [
+			"AL",
+			"AK",
+			"AS",
+			"AZ",
+			"AR",
+			"CA",
+			"CO",
+			"CT",
+			"DE",
+			"DC",
+			"FM",
+			"FL",
+			"GA",
+			"GU",
+			"HI",
+			"ID",
+			"IL",
+			"IN",
+			"IA",
+			"KS",
+			"KY",
+			"LA",
+			"ME",
+			"MH",
+			"MD",
+			"MA",
+			"MI",
+			"MN",
+			"MS",
+			"MO",
+			"MT",
+			"NE",
+			"NV",
+			"NH",
+			"NJ",
+			"NM",
+			"NY",
+			"NC",
+			"ND",
+			"MP",
+			"OH",
+			"OK",
+			"OR",
+			"PW",
+			"PA",
+			"PR",
+			"RI",
+			"SC",
+			"SD",
+			"TN",
+			"TX",
+			"UT",
+			"VT",
+			"VA",
+			"VI",
+			"WA",
+			"DC",
+			"WV",
+			"WI",
+			"WY",
+		]; */
+		
+		var availableStates = ["AL","AK","AS"]
+
 		$.ajaxPrefilter(function (options, orig, xhr) {
 
 			if (options.processData
@@ -279,7 +344,7 @@
 			var values = can.deparam(form.serialize());
 			CreateContactServer(values, function (result) {
 				$('#create').slideUp();
-				LoadContacts($('#filter').find('.active').find('a').attr('data-category'));
+				LoadContacts($.data($("#storedData")[0], 'business'));
 				$.growl({
 					title : "RoloMax",
 					message : "Contact Created..",
@@ -292,8 +357,10 @@
 			var form = $('#createUser').find('form');
 			var values = can.deparam(form.serialize());
 			CreateUserDefinedServer(values, function (result) {
-				$('#create').slideUp();
-				LoadContacts($('#filter').find('.active').find('a').attr('data-category'));
+				$('#createUser').slideUp();
+				data.Business = $.data($("#storedData")[0], 'business');
+				data.Contact = $.data($("#storedData")[0], 'contact');
+				LoadUserDefined(data);
 				$.growl({
 					title : "RoloMax",
 					message : "User Defined Created..",
@@ -394,11 +461,13 @@
 			form = $(this).closest('form');
 
 			var x = new Parsley(form);
-
 			var valid = x.validate();
 
 			if (valid) {
 				data = can.deparam(form.serialize());
+				data.BPhone1 = data.BPhone1.replace(/\D/g, '');
+				data.BPhone2 = data.BPhone2.replace(/\D/g, '');
+
 				UpdateBusinessServer(data, function (values, response) {
 					$.growl({
 						title : "RoloMax",
@@ -484,6 +553,18 @@
 		findAllBusiness(data, function (response) {
 
 			LoadBusiness(response);
+
+			//Set Up Phone Mask on All Phone Numbers//
+			var dateBoxes = $("input[name='BPhone1']");
+			dateBoxes.mask("(999) 999-9999");
+
+			var dateBoxes = $("input[name='BPhone2']");
+			dateBoxes.mask("(999) 999-9999");
+			
+			var stateAutoComplete = $("input[name='BState']");
+			 stateAutoComplete.autocomplete({
+			source: availableStates
+    });
 
 			// update perfect scrollbar
 			jQuery('.scrollbar-vista').scrollbar({

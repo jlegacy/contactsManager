@@ -6,8 +6,10 @@
 				<%= category.BName %> 
 			</a>
 		</li>
+		<div id="menu-container" style="position:absolute; width: 500px;"></div>
 		<li class="business">
 		<%== can.view.render('views/businessView.ejs', {business: category}) %>
 		</li>
+		</div>
 	<% }) %>
 </ul>

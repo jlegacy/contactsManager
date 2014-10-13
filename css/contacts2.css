@@ -392,6 +392,18 @@ width:250px;
 	right: 2px;
 }
 
+.parsley-required{
+color: red;
+}
+
+.parsley-length{
+color: red;
+}
+
+.parsley-type{
+color: red;
+}
+
 body {
     margin: 0px;
     padding: 0px;
