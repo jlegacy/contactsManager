@@ -1,14 +1,5 @@
 (function () {
 
-	/*UserDefined = can.Model.extend({
-	findAll : 'GET /userDefined/{CBusId}{CConId}',
-	find: 'GET /userDefined/{CBusId}{CConId}{UField}'
-	create : "POST /userDefined",
-	update : "PUT /userDefined/{CBusId}{CConId}{UField}",
-	destroy : "DELETE /userDefined/{CBusId}{CConId}{UField}",
-	id : "U"
-	}, {}); */
-
 	function LoadBusiness(data) {
 		var category = can.route.attr('category') || "all";
 		$('#filter').html(can.view('views/filterView.ejs', {
@@ -79,14 +70,50 @@
 
 	}
 
+	function ShowAddUser() {
+
+		var data = {};
+
+		data.UUsrId = createGuid();
+		data.UBusId = $("#storedData").data('business');
+		data.UConId = $("#storedData").data('contact');
+
+		var x = (can.view('views/createUser.ejs', {
+				user : data
+			}));
+
+		$('#createUser').empty();
+		$('#createUser').hide();
+		$('#createUser').append(x);
+		$('#createUser').slideDown();
+
+	}
+
 	function HideAddBusiness() {
 		$('#createBusiness').slideUp();
+	}
+
+	function HideAddUser() {
+		$('#createUser').slideUp();
 	}
 
 	function DeleteBusinessServer(data, callback) {
 		$.ajax({
 			type : "GET",
 			url : "/ContactsManager/Service1.svc/DeleteBusiness",
+			data : data,
+			contentType : "application/json; charset=utf-8",
+			processData : true,
+			dataType : 'json',
+		})
+		.done(function (result, response) {
+			callback(result, response);
+		});
+	}
+	function DeleteUserServer(data, callback) {
+		$.ajax({
+			type : "GET",
+			url : "/ContactsManager/Service1.svc/DeleteUserDefined",
 			data : data,
 			contentType : "application/json; charset=utf-8",
 			processData : true,
@@ -139,6 +166,20 @@
 
 	}
 
+	function CreateUserDefinedServer(data, callback) {
+		$.ajax({
+			type : "POST",
+			url : "/ContactsManager/Service1.svc/AddUserDefined",
+			data : data,
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+		})
+		.done(function (result) {
+			callback(result);
+		});
+
+	}
+
 	function CreateBusinessServer(data, callback) {
 		$.ajax({
 			type : "POST",
@@ -180,6 +221,20 @@
 		});
 	}
 
+	function UpdateUserDefinedServer(data, callback) {
+		$.ajax({
+			type : "POST",
+			url : "/ContactsManager/Service1.svc/UpdateUserDefined",
+			data : data,
+			contentType : "application/json; charset=utf-8",
+			processData : true,
+			dataType : 'json',
+		})
+		.done(function (result, response) {
+			callback(result, response);
+		});
+	}
+
 	function findAllBusiness(data, callback) {
 		$.ajax({
 			type : "GET",
@@ -208,6 +263,8 @@
 
 	$(document).ready(function () {
 
+		var storeData = $('#storedData')[0];
+
 		$.ajaxPrefilter(function (options, orig, xhr) {
 
 			if (options.processData
@@ -226,6 +283,20 @@
 				$.growl({
 					title : "RoloMax",
 					message : "Contact Created..",
+					style : "notice"
+				});
+			});
+		});
+
+		$("body").delegate("#userSave", "click", function () {
+			var form = $('#createUser').find('form');
+			var values = can.deparam(form.serialize());
+			CreateUserDefinedServer(values, function (result) {
+				$('#create').slideUp();
+				LoadContacts($('#filter').find('.active').find('a').attr('data-category'));
+				$.growl({
+					title : "RoloMax",
+					message : "User Defined Created..",
 					style : "notice"
 				});
 			});
@@ -253,21 +324,45 @@
 			HideAddBusiness();
 		});
 
-		$("nav").delegate("a", "click", function () {
-			$("#section-navigation li").removeClass('active');
+		$("body").delegate("#userCancel", "click", function () {
+			HideAddUser();
+		});
+
+		$("#filter").delegate("a", "click", function () {
+
+			$("#filter li").removeClass('active');
 			var x = $(this).closest('li').addClass('active');
+			//store data in dom
+			$.data($("#storedData")[0], "business", $(this).attr('data-category'));
+
 			LoadContacts($(this).attr('data-category'));
+
 		});
 
 		$('#contacts').delegate("li", "click", function () {
+
 			var data = {};
 			$("#contacts li").removeClass('active');
 			var x = $(this).addClass('active');
 
-			data.Business = $(this).find('input[name=CBusId').val();
-			data.Contact = $(this).find('input[name=CConId').val();
-			
+			//store data in dom
+			$.data($("#storedData")[0], "contact", $(this).find('input[name=CConId').val());
+
+			data.Business = $.data($("#storedData")[0], 'business');
+			data.Contact = $.data($("#storedData")[0], 'contact');
+
 			LoadUserDefined(data);
+		});
+
+		$('#users').delegate("li", "click", function () {
+
+			var data = {};
+			$("#contacts li").removeClass('active');
+			var x = $(this).addClass('active');
+
+			//store data in dom
+			$.data($("#storedData")[0], "user", $(this).find('input[name=UUsrId').val());
+
 		});
 
 		$("body").delegate("#new-contact", "click", function () {
@@ -276,6 +371,10 @@
 
 		$("body").delegate("#new-business", "click", function () {
 			ShowAddBusiness();
+		});
+
+		$("body").delegate("#new-user", "click", function () {
+			ShowAddUser();
 		});
 
 		$("body").delegate("#contacts .inputEdit", "change", function () {
@@ -291,14 +390,35 @@
 		});
 
 		$("body").delegate("#filter .inputEdit", "change", function () {
+
+			form = $(this).closest('form');
+
+			var x = new Parsley(form);
+
+			var valid = x.validate();
+
+			if (valid) {
+				data = can.deparam(form.serialize());
+				UpdateBusinessServer(data, function (values, response) {
+					$.growl({
+						title : "RoloMax",
+						message : "Business Updated..",
+						style : "notice"
+					});
+				});
+			}
+
+		});
+
+		$("body").delegate("#users .inputEdit", "change", function () {
 			var form = $(this).closest('form');
 			data = can.deparam(form.serialize());
-			UpdateBusinessServer(data, function (values, response) {
+			UpdateUserDefinedServer(data, function (values, response) {
 				console.log(response);
 				console.log(values);
 				$.growl({
 					title : "RoloMax",
-					message : "Business Updated..",
+					message : "User Defined Updated..",
 					style : "notice"
 				});
 			});
@@ -336,6 +456,23 @@
 				$.growl({
 					title : "RoloMax",
 					message : "Business Deleted..",
+					style : "notice"
+				});
+			});
+		});
+
+		$("body").delegate(".userRemove", "click", function () {
+			var data = {};
+			var y = $(this).closest('li');
+			data = {
+				User : data.Contact = $.data($("#storedData")[0], 'user')
+			};
+			DeleteUserServer(data, function (values, response) {
+				console.log(values, response);
+				y.remove();
+				$.growl({
+					title : "RoloMax",
+					message : "User Deleted..",
 					style : "notice"
 				});
 			});

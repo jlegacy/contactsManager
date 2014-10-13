@@ -9,6 +9,12 @@
 		<link rel="stylesheet" href="css/jquery.growl.css" />
 	</head>
 <body>
+
+<form id="Testing">
+<input required id="joseph"></input>
+</Form>
+<div id="storedData"> </div>
+
 <div id="container">
 	<div id="header">
 		<h1>
@@ -77,12 +83,15 @@
 				</div>
 			</div>
 			<div id="aside">
+			<a class="btn btn-large btn-primary" href="javascript://" id="new-user"><i class="icon-plus icon-white"></i>New User Field</a>
 				<h3>
 					User Defined Information
 				</h3>
 				<p>
 					User Defined Information
 				</p>
+				<div id ="createUser"> </div>
+				
 				 <div id="users" class="scrollbar-external">
        
 				</div>
@@ -112,9 +121,7 @@
 		<script src="js/model.js"></script>
 		<script src="js/controller.js"></script>
 		<script src="js/jquery.growl.js"></script>
-
-
-
-
+		<script src="js/parsley.js"></script>
+		
 </body>
 </html>

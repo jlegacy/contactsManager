@@ -1,16 +1,16 @@
 <a href="javascript://" class="businessRemove"><i Class="icon-remove"></i></a>
-<form>
+<form id="Test">
 	<div Class="row">
 		<div Class="span2">
-			<img srB="img/Business.png" width="100" height="100">
+			<img srb="img/Business.png" width="100" height="100">
 		</div>
 	
 		<div class="span3">
-		<label>Name</label>
-		<input type="text" name="BName" Class="inputEdit" placeHolder="Name" 
+		<label for="BName">Name</label>
+		<input type="text" Required  name="BName" Class="inputEdit"
 				<%= "value=" + business.BName%>>
-					<label>City</label>
-			<input type="text" Class="inputEdit" name="BCity" 
+					<label for="BCity">City</label>
+			<input type="text" Required Class="inputEdit" name="BCity"
 				<%="value=" + business.BCity%>>
 					<label>State</label>
 			<input type="text" Class="inputEdit" name="BState" 
