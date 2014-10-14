@@ -7,7 +7,7 @@
 		<div class="span5 floatleft">
 		<label class="floatleft" for="BName">Name</label>
 		<input type="text" Required  name="BName" Class="inputEdit"
-				<%= "value=" + business.BName%>>
+					<%= business.BName ? "value=" + business.BName  : "class='empty'" %>>
 		</div>
 		<div class="span5 floatleft">
 					<label for="BCity" class="float-left">City</label>
@@ -19,17 +19,17 @@
 				<div class="span5 floatleft">
 					<label class="floatleft">State</label>
 			<input type="text" Required Class="inputEdit float-left width50" name="BState" 
-				<%="value=" + business.BState%>>
+					<%= business.BState ? "value=" + business.BState  : "class='empty'" %>>
 				</div>
 				<div class="span5 floatleft">
 					<label class="floatleft">Address</label>
 			<input type="text" Required Class="inputEdit" name="BAddress" 
-				<%="value=" + business.BAddress%>>
+					<%= business.BAddress ? "value=" + business.BAddress  : "class='empty'" %>>
 				</div>
 				<div class="span5 floatleft">
 			<label class="floatleft">Phone</label>
 			<input type="text" Number Required Class="inputEdit width75" name="BPhone1" 
-				<%="value=" + business.BPhone1%>>
+					<%= business.BPhone1 ? "value=" + business.BPhone1  : "class='empty'" %>>
 				<select name = "BPhone1Fax" class="width100 margin-left10"> 
 				<option value="" <% if (business.BPhone1Fax == '') { %>selected<% } %> ></option>
 				<option value="n" <% if (business.BPhone1Fax == 'n') { %>selected<% } %> >Phone</option>
@@ -39,12 +39,12 @@
 				<div class="span5 floatleft">
 			<label class="floatleft">Email</label>
 			<input type="email" Class="inputEdit" name="BEmail" 
-				<%="value=" + business.BEmail%>>
+					<%= business.BEmail ? "value=" + business.BEmail  : "class='empty'" %>>
 				</div>
 				<div class="span5 floatleft">
 			<label class="floatleft">Phone2</label>
 			<input type="text" Class="inputEdit width75" name="BPhone2" 
-				<%="value=" + business.BPhone2%>>
+					<%= business.BPhone2 ? "value=" + business.BPhone2  : "class='empty'" %>>
 					<select name = "BPhone2Fax" class="width100 margin-left10"> 
 					<option value="" <% if (business.BPhone2Fax == '') { %>selected<% } %> ></option>
 				<option value="n" <% if (business.BPhone2Fax == 'n') { %>selected<% } %> >Phone</option>
@@ -58,7 +58,7 @@
 		</div>
 	</div>
 	<div id="businessButtonBar" class="center margin-botton-10">
-	<button class="updateBusinessButton">Update</button>
-	<button class="deleteBusinessButton">Delete</button>
+	<button id=<%=business.BBusId%> class="updateBusinessButton">Update</button>
+	<button id=<%=business.BBusId%> class="deleteBusinessButton">Delete</button>
 	</div>
 </form>

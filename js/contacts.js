@@ -384,10 +384,13 @@
 
 			$(".deleteBusinessButton").click(function (event) {
 				event.preventDefault();
+				var element = $(this);
+				var data = {};
 				$("#MessageConfirm").dialog({
 					buttons : {
 						"Confirm" : function () {
-							DeleteBusiness($(this));
+							data.Business = element.attr('id');
+							DeleteBusiness(element, data);
 							$(this).dialog("close");
 						},
 						"Cancel" : function () {
@@ -434,14 +437,8 @@
 		}
 	}
 
-	function DeleteBusiness(element) {
-		var data;
-
-		var x = element.closest('li').find('input[name="BBusId"]').val();
+	function DeleteBusiness(element, data) {
 		var y = element.closest('li');
-		data = {
-			Business : x
-		};
 		DeleteBusinessServer(data, function (values, response) {
 			y.remove();
 			$.growl({
@@ -449,6 +446,12 @@
 				message : "Business Deleted..",
 				style : "notice"
 			});
+
+			data = {
+				Filter : ''
+			};
+
+			LoadAllBusiness(data);
 		});
 	}
 
@@ -519,6 +522,12 @@
 						message : "Business Created..",
 						style : "notice"
 					});
+					data = {
+						Filter : ''
+					};
+
+					LoadAllBusiness(data);
+
 				});
 			}
 		});
@@ -652,11 +661,11 @@
 			});
 		});
 
-		data = {
-			Filter : ''
-		};
-
-		LoadAllBusiness(data);
+		$("#search-business").click(function () {
+			var data = {};
+			data.Filter = $('#search_box').val();
+			LoadAllBusiness(data);
+		});
 
 	});
 
