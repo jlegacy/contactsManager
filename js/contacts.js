@@ -64,7 +64,7 @@
 	];
 
 	function LoadBusiness(data) {
-		var category = can.route.attr('category') || "all";
+
 		$('#filter').html(can.view('views/filterView.ejs', {
 				categories : data
 			}));
@@ -145,10 +145,10 @@
 		$('#createBusiness').append(x);
 		$('#createBusiness').slideDown();
 
-		$('.businessButtonBar').hide();
+		$('#businessButtonBar').hide();
 
 		SetUpBusinessEditMask();
-	
+
 	}
 
 	function ShowAddUser() {
@@ -171,7 +171,7 @@
 	}
 
 	function HideAddBusiness() {
-		$('#createBusiness').slideUp();
+		$('#createBusiness').slideUp(200);
 	}
 
 	function HideAddUser() {
@@ -319,12 +319,13 @@
 	function findAllBusiness(data, callback) {
 		$.ajax({
 			type : "GET",
+			cache : false,
 			url : "../ContactsManager/Service1.svc/GetBusiness/",
 			data : data,
 			contentType : "application/json; charset=utf-8",
 			dataType : 'json',
 		})
-		.done(function (result) {
+		.done(function (result, response) {
 			callback(result);
 		});
 	}
@@ -339,6 +340,71 @@
 		})
 		.done(function (result) {
 			callback(result);
+		});
+	}
+
+	function LoadAllBusiness(data) {
+
+		findAllBusiness(data, function (response) {
+
+			LoadBusiness(response);
+
+			//Set Up Phone Mask on All Phone Numbers//
+			SetUpBusinessEditMask();
+
+			$(".updateBusinessButton").button({
+				icons : {
+					primary : "ui-icon-gear",
+					secondary : "ui-icon-triangle-1-s"
+				}
+			});
+
+			$(".deleteBusinessButton").button({
+				icons : {
+					primary : "ui-icon-gear",
+					secondary : "ui-icon-triangle-1-s"
+				}
+			});
+
+			$(".updateBusinessButton").click(function (event) {
+				event.preventDefault();
+
+				var form = $(this).closest('form');
+				var x = new Parsley(form);
+				var valid = x.validate();
+
+				if (valid) {
+					UpdateBusiness($(this));
+					data = {};
+					data.Filter = '';
+					LoadAllBusiness(data);
+				}
+
+			});
+
+			$(".deleteBusinessButton").click(function (event) {
+				event.preventDefault();
+				$("#MessageConfirm").dialog({
+					buttons : {
+						"Confirm" : function () {
+							DeleteBusiness($(this));
+							$(this).dialog("close");
+						},
+						"Cancel" : function () {
+							$(this).dialog("close");
+						}
+					}
+				});
+
+			});
+			$(".business").hide();
+
+			// update perfect scrollbar
+			jQuery('.scrollbar-vista').scrollbar({
+				"showArrows" : true,
+				"type" : "advanced"
+			});
+
 		});
 	}
 
@@ -359,6 +425,11 @@
 					message : "Business Updated..",
 					style : "notice"
 				});
+				data = {
+					Filter : ''
+				};
+
+				LoadAllBusiness(data);
 			});
 		}
 	}
@@ -431,19 +502,36 @@
 		$("body").delegate("#businessSave", "click", function () {
 			var form = $('#createBusiness').find('form');
 			var data = can.deparam(form.serialize());
-			
+
 			data.BPhone1 = data.BPhone1.replace(/\D/g, '');
 			data.BPhone2 = data.BPhone2.replace(/\D/g, '');
-			
-			CreateBusinessServer(data, function (result, response) {
-				$('#businessCreate').slideUp();
-				HideAddBusiness();
-				$.growl({
-					title : "RoloMax",
-					message : "Business Created..",
-					style : "notice"
+
+			var x = new Parsley(form);
+			var valid = x.validate();
+
+			if (valid) {
+
+				CreateBusinessServer(data, function (result, response) {
+					$('#businessCreate').slideUp();
+					HideAddBusiness();
+					$.growl({
+						title : "RoloMax",
+						message : "Business Created..",
+						style : "notice"
+					});
 				});
-			});
+			}
+		});
+
+		$("body").delegate(".expander", "click", function () {
+			$(this).toggleClass("businessExpand", 0, "businessShrink").toggleClass("businessShrink", 0, "businessExpand");
+			if ($(this).hasClass("businessShrink")) {
+				$(this).next('li').slideDown(200);
+			}
+			if ($(this).hasClass("businessExpand")) {
+				$(this).next('li').slideUp(200);
+			}
+
 		});
 
 		$("body").delegate("#businessCancel", "click", function () {
@@ -454,7 +542,7 @@
 			HideAddUser();
 		});
 
-		$("#filter").delegate("a", "click", function () {
+		$("#filter").delegate(".businessHeader a", "click", function () {
 
 			$("#filter li").removeClass('active');
 			var x = $(this).closest('li').addClass('active');
@@ -547,25 +635,6 @@
 			});
 		});
 
-		$("body").delegate(".businessRemove", "click", function () {
-			var data;
-
-			var x = $(this).closest('li').find('input[name="BBusId"]').val();
-			var y = $(this).closest('li');
-			data = {
-				Business : x
-			};
-			DeleteBusinessServer(data, function (values, response) {
-				console.log(values, response);
-				y.remove();
-				$.growl({
-					title : "RoloMax",
-					message : "Business Deleted..",
-					style : "notice"
-				});
-			});
-		});
-
 		$("body").delegate(".userRemove", "click", function () {
 			var data = {};
 			var y = $(this).closest('li');
@@ -586,57 +655,9 @@
 		data = {
 			Filter : ''
 		};
-		findAllBusiness(data, function (response) {
 
-			LoadBusiness(response);
+		LoadAllBusiness(data);
 
-			//Set Up Phone Mask on All Phone Numbers//
-			SetUpBusinessEditMask();
-			
-			$(".updateBusinessButton").button({
-			icons : {
-				primary : "ui-icon-gear",
-				secondary : "ui-icon-triangle-1-s"
-			}
-		});
-
-		$(".deleteBusinessButton").button({
-			icons : {
-				primary : "ui-icon-gear",
-				secondary : "ui-icon-triangle-1-s"
-			}
-		});
-
-		
-
-		
-		$(".updateBusinessButton").click(function (event) {
-			event.preventDefault();
-			UpdateBusiness($(this));
-		});
-
-		$(".deleteBusinessButton").click(function (event) {
-			event.preventDefault();
-			$("#MessageConfirm").dialog({
-				buttons : {
-					"Confirm" : function () {
-						DeleteBusiness($(this));
-						$(this).dialog("close");
-					},
-					"Cancel" : function () {
-						$(this).dialog("close");
-					}
-				}
-			});
-
-		});
-		// update perfect scrollbar
-		jQuery('.scrollbar-vista').scrollbar({
-			"showArrows" : true,
-			"type" : "advanced"
-		});
-		
-		});
 	});
 
 })();

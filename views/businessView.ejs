@@ -1,44 +1,63 @@
-<a href="javascript://" class="businessRemove"><i Class="icon-remove"></i></a>
 <form id="Test">
 	<div Class="row">
 		<div Class="span2">
 			<img srb="img/Business.png" width="100" height="100">
 		</div>
-	
-		<div class="span3">
-		<label for="BName">Name</label>
+		<div class="span5">
+		<div class="span5 floatleft">
+		<label class="floatleft" for="BName">Name</label>
 		<input type="text" Required  name="BName" Class="inputEdit"
 				<%= "value=" + business.BName%>>
-					<label for="BCity">City</label>
-			<input type="text" Required Class="inputEdit" name="BCity"
-				<%="value=" + business.BCity%>>
-					<label>State</label>
-			<input type="text" Required Class="inputEdit" name="BState" 
+		</div>
+		<div class="span5 floatleft">
+					<label for="BCity" class="float-left">City</label>
+			<input type="text" Required Class="inputEdit float-left width150" name="BCity"
+			
+			<%= business.BCity ? "value=" + business.BCity  : "class='empty'" %>>
+				
+				</div>
+				<div class="span5 floatleft">
+					<label class="floatleft">State</label>
+			<input type="text" Required Class="inputEdit float-left width50" name="BState" 
 				<%="value=" + business.BState%>>
-					<label>Address</label>
+				</div>
+				<div class="span5 floatleft">
+					<label class="floatleft">Address</label>
 			<input type="text" Required Class="inputEdit" name="BAddress" 
 				<%="value=" + business.BAddress%>>
-			<label>Phone</label>
-			<input type="text" Number Required Class="inputEdit" name="BPhone1" 
+				</div>
+				<div class="span5 floatleft">
+			<label class="floatleft">Phone</label>
+			<input type="text" Number Required Class="inputEdit width75" name="BPhone1" 
 				<%="value=" + business.BPhone1%>>
-			<label>Email</label>
+				<select name = "BPhone1Fax" class="width100 margin-left10"> 
+				<option value="" <% if (business.BPhone1Fax == '') { %>selected<% } %> ></option>
+				<option value="n" <% if (business.BPhone1Fax == 'n') { %>selected<% } %> >Phone</option>
+				<option value="y" <% if (business.BPhone1Fax == 'y') { %>selected<% } %> >Fax</option>
+					</select>
+				</div>
+				<div class="span5 floatleft">
+			<label class="floatleft">Email</label>
 			<input type="email" Class="inputEdit" name="BEmail" 
 				<%="value=" + business.BEmail%>>
-			<label>Phone2</label>
-			<input type="text" Class="inputEdit" name="BPhone2" 
+				</div>
+				<div class="span5 floatleft">
+			<label class="floatleft">Phone2</label>
+			<input type="text" Class="inputEdit width75" name="BPhone2" 
 				<%="value=" + business.BPhone2%>>
-				<label>Phone1 Fax</label>
-			<input type = "text" Class="inputEdit" name = "BPhone1Fax"
-				<%="value=" + business.BPhone1Fax%>>
-				<label>Phone2 Fax</label> 
-			<input type = "text" Class="inputEdit" name = "BPhone2Fax"
-				<%="value=" + business.BPhone2Fax%>>
+					<select name = "BPhone2Fax" class="width100 margin-left10"> 
+					<option value="" <% if (business.BPhone2Fax == '') { %>selected<% } %> ></option>
+				<option value="n" <% if (business.BPhone2Fax == 'n') { %>selected<% } %> >Phone</option>
+				<option value="y" <% if (business.BPhone2Fax == 'y') { %>selected<% } %> >Fax</option>
+					</select>
+				</div>
+				
 			<input class="hidden" Class="inputEdit" type="text" name="BBusId"
 				<%="value=" + business.BBusId%>>
 			
 		</div>
 	</div>
-	<div class="businessButtonBar">
+	<div id="businessButtonBar" class="center margin-botton-10">
 	<button class="updateBusinessButton">Update</button>
 	<button class="deleteBusinessButton">Delete</button>
 	</div>

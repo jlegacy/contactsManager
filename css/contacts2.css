@@ -53,7 +53,7 @@
 
 #content-container2
 {
-	float: left;
+	/* float: left; */
 	width: 100%;
 	background: url(/wp-content/uploads/layout-three-liquid-background2.gif) repeat-y 80% 0;
 }
@@ -61,7 +61,7 @@
 #section-navigation
 {
 	float: left;
-	width: 16%;
+	width: 27%;
 	padding: 20px 0;
 	margin: 0 2%;
 	display: inline;
@@ -83,7 +83,7 @@
 #content
 {
 	float: left;
-	width: 56%;
+	width: 30%;
 	padding: 20px 0;
 	margin: 0 0 0 2%;
 }
@@ -93,7 +93,7 @@
 #aside
 {
 	float: right;
-	width: 16%;
+	width: 30%;
 	padding: 20px 0;
 	margin: 0 2% 0 0;
 	display: inline;
@@ -248,7 +248,7 @@ height:200px;
 	float: left;
 	padding-top: 5px;
 	text-align: right;
-	width: 60px;
+	width: 65px;
 }
 
 .ui-autocomplete { height: 100px; overflow-y: auto; overflow-x: auto; width: 100px;}   
@@ -257,18 +257,97 @@ height:200px;
 	margin-left: 10px;
 	float: left;
 }
-
+.margin-botton-10{
+margin-bottom:10px;
+}
 .business label {
 	font-weight: bold;
 }
 
-.business{
-width:250px;
+.businessHeader a{
+margin-left:5px !important;
 }
-.business input, .business select {
-	width: 120px;
+.center{
+ margin-left: auto;
+    margin-right: auto;
+    width: 70%;
 }
 
+.float-left{
+float:left;
+height: 100%;
+width: 100%;
+}
+
+
+.width25{
+width: 25px;
+}
+
+.width50{
+width: 50px;
+}
+
+
+
+.businessExpand{
+ position: absolute;
+ margin-top: -38px;
+ margin-left: -20px;
+    float: right;	 
+ height: 25px; 
+ width: 25px;
+    padding-right: 10px;
+    cursor: pointer;
+ 	 background-image: url("../img/icons.png");
+	 	   background-position: center -4px;
+    background-repeat: repeat-x;
+}
+
+.businessShrink{
+position: absolute;
+ margin-top: -38px;
+ margin-left: -20px;
+    float: right;	 
+ height: 25px; 
+ width: 25px;
+    padding-right: 10px;
+    cursor: pointer;
+ 	 background-image: url("../img/icons.png");
+	 	   
+background-position: -99px -4px;
+    background-repeat: repeat-x;
+}
+
+.margin-left10{
+margin-left: 10px;
+}
+
+
+.width75{
+width: 75px;
+}
+
+.width100{
+width: 100px;
+}
+
+.width150{
+width: 150px;
+}
+
+.width200{
+width: 200px;
+}
+
+.width300{
+width: 300px;
+}
+
+
+.width400{
+width: 400px;
+}
 .hidden {
 	visibility: hidden;
 }

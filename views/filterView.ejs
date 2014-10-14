@@ -1,12 +1,13 @@
 <ul class="nav nav-list">
-	<li class="nav-header">Business</li>
-	<% $.each(categories, function(i, category){ %>
+	<li class="nav-header">Business</li> 
+	<% $.each(categories, function(i, category){ %> 
 		<li class="businessHeader">
-			<a href="javascript://" data-category="<%= category.BBusId %>">
+		<a href="javascript://" data-category="<%= category.BBusId %>">
 				<%= category.BName %> 
 			</a>
 		</li>
-		<div id="menu-container" style="position:absolute; width: 500px;"></div>
+		<div id="menu-container" class="span5"></div>
+		<div class="expander businessExpand"></div>
 		<li class="business">
 		<%== can.view.render('views/businessView.ejs', {business: category}) %>
 		</li>
