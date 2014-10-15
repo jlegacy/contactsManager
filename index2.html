@@ -1,131 +1,127 @@
 <!doctype html>
 <html>
+
 <head>
-		<meta charset="utf-8">
-		<title>Contacts Manager >> Part 3</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/contacts2.css">
-		<link rel="stylesheet" href="css/jquery.scrollbar.css" />
-		<link rel="stylesheet" href="css/jquery.growl.css" />
-		<link href="http://code.jquery.com/ui/1.10.4/themes/cupertino/jquery-ui.css" rel="stylesheet">
-     
-	</head>
+    <meta charset="utf-8">
+    <title>Contacts Manager >> Part 3</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/contacts2.css">
+    <link rel="stylesheet" href="css/jquery.scrollbar.css" />
+    <link rel="stylesheet" href="css/jquery.growl.css" />
+    <link href="http://code.jquery.com/ui/1.10.4/themes/cupertino/jquery-ui.css" rel="stylesheet">
+
+</head>
+
 <body>
 
+    <div id="storedData"> </div>
 
-
-<div id="storedData"> </div>
-
-<div id="container">
-	<div id="header">
-		<h1>
+    <div id="container">
+        <div id="header">
+            <h1>
 			Site name
 		</h1>
-	</div>
-	<div id="navigation">
-		<ul>
-			<li>
-			
-			<div><a class="btn btn-large btn-primary" href="javascript://" id="search-business"><i class="icon icon-white"></i>Search Business</a></div>
-			<div><input id="search_box" class="search_box"></input></div>
-			</li>
-		</ul>
-	</div>
-	<div id="MessageConfirm" title="Message Confirm"></div>
-	<div id="content-container1">
-		<div id="content-container2">
-			<div id="section-navigation">
-				<div class="well">
-						<a class="btn btn-large btn-primary" href="javascript://" id="new-business"><i class="icon-plus icon-white"></i>New Business</a>
-						<nav></nav>
-					</div>
-					<div id ="createBusiness"> </div>
-					<div class="span5">
+        </div>
+        <div id="navigation">
+            <ul>
+                <li>
+
+                    <div><a class="btn btn-large btn-primary" href="javascript://" id="search-business"><i class="icon icon-white"></i>Search Business</a>
+                    </div>
+                    <div>
+                        <input id="search_box" class="search_box"></input>
+						<div class="iconSearch"><div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="MessageConfirm" title="Message Confirm"></div>
+        <div id="content-container1">
+            <div id="content-container2">
+                <div id="section-navigation">
+                    <div class="well">
+                        <a class="btn btn-large btn-primary" href="javascript://" id="new-business"><i class="icon-plus icon-white"></i>New Business</a>
+                        <nav></nav>
+                    </div>
+                    <div id="createBusiness"> </div>
 					
-					<div class="well">
-					
-						
-						<nav id="filter"></nav>
-					
-					</div>
-				</div>
-			
-			</div>
-			<div id="content">
-				<h2>
+
+                        <div class="well">
+
+
+                            <nav id="filter"></nav>
+
+                        </div>
+                </div>
+                <div id="content">
+                    <h2>
 					Page heading
 				</h2>
-				<a class="btn btn-large btn-primary" href="javascript://" id="new-contact"><i class="icon-plus icon-white"></i>New Contact</a>
-				<nav id="filter"></nav>
-						<div class="span9">
-					<div id="create"></div>
-					 
-					<div class="scrollbar-external_wrapper">
-    <div id="contacts" class="scrollbar-external">
-       
-    </div> 
- 
-    <div class="external-scroll_x">
-        <div class="scroll-element_outer">
-            <div class="scroll-element_size"></div>
-            <div class="scroll-element_track"></div>
-            <div class="scroll-bar"></div>
-        </div>
-    </div>
- 
-    <div class="external-scroll_y">
-        <div class="scroll-element_outer">
-            <div class="scroll-element_size"></div>
-            <div class="scroll-element_track"></div>
-            <div class="scroll-bar"></div>
-        </div>
-    </div>
-</div>
-					 
-				</div>
-			</div>
-			<div id="aside">
-			<a class="btn btn-large btn-primary" href="javascript://" id="new-user"><i class="icon-plus icon-white"></i>New User Field</a>
-				<h3>
+                    <a class="btn btn-large btn-primary" href="javascript://" id="new-contact"><i class="icon-plus icon-white"></i>New Contact</a>
+                    <nav id="filter"></nav>
+                    <div class="span9">
+                        <div id="create"></div>
+
+                        <div class="scrollbar-external_wrapper">
+                            <div id="contacts" class="scrollbar-external">
+
+                            </div>
+
+                            <div class="external-scroll_x">
+                                <div class="scroll-element_outer">
+                                    <div class="scroll-element_size"></div>
+                                    <div class="scroll-element_track"></div>
+                                    <div class="scroll-bar"></div>
+                                </div>
+                            </div>
+
+                            <div class="external-scroll_y">
+                                <div class="scroll-element_outer">
+                                    <div class="scroll-element_size"></div>
+                                    <div class="scroll-element_track"></div>
+                                    <div class="scroll-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="aside">
+                    <a class="btn btn-large btn-primary" href="javascript://" id="new-user"><i class="icon-plus icon-white"></i>New User Field</a>
+                    <h3>
 					User Defined Information
 				</h3>
-				<p>
-					User Defined Information
-				</p>
-				<div id ="createUser"> </div>
-				
-				 <div id="users" class="scrollbar-external">
-       
-				</div>
-			</div>
-			<div id="footer">
-				Copyright © Site name, 20XX
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 
- * Layout generated with http://layzilla.com
- * Layout generator is free of use.
- * We appreciate if you leave this comment block in commercial use of generator.
- * All comment and ideas can be submitted to us using contacts below.
- *
- *    site: www.jmholding.com
- *   email: info@jmholding.ru
- *  twitter: @jmholding
+                    <p>
+                        User Defined Information
+                    </p>
+                    <div id="createUser"> </div>
+
+                    <div id="users" class="scrollbar-external">
+
+                    </div>
+                </div>
+                <div id="footer">
+                    Copyright © Site name, 20XX
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 
+
  -->
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-		<script src="js/can.jquery.js"></script>
-		<script src="js/can.fixture.js"></script>
-		<script src="js/contacts.js"></script>		
-		<script src="js/jquery.scrollbar.min.js"></script>
-		<script src="js/guid.js"></script>
-		<script src="js/model.js"></script>
-		<script src="js/controller.js"></script>
-		<script src="js/jquery.growl.js"></script>
-		<script src="js/parsley.js"></script>
-		<script src="js/jquery.maskedinput.js"></script>
-		
-      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="js/can.jquery.js"></script>
+    <script src="js/can.fixture.js"></script>
+    <script src="js/contacts.js"></script>
+    <script src="js/jquery.scrollbar.min.js"></script>
+    <script src="js/guid.js"></script>
+    <script src="js/model.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/jquery.growl.js"></script>
+    <script src="js/parsley.js"></script>
+    <script src="js/jquery.maskedinput.js"></script>
+
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
+
 </html>

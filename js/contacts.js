@@ -346,7 +346,7 @@
 	function LoadAllBusiness(data) {
 
 		findAllBusiness(data, function (response) {
-
+	
 			LoadBusiness(response);
 
 			//Set Up Phone Mask on All Phone Numbers//
@@ -375,9 +375,6 @@
 
 				if (valid) {
 					UpdateBusiness($(this));
-					data = {};
-					data.Filter = '';
-					LoadAllBusiness(data);
 				}
 
 			});
@@ -402,13 +399,18 @@
 			});
 			$(".business").hide();
 
-			// update perfect scrollbar
+		/*	// update perfect scrollbar
 			jQuery('.scrollbar-vista').scrollbar({
 				"showArrows" : true,
 				"type" : "advanced"
-			});
+			});*/
 
 		});
+	}
+	
+	function GetSearchBox()
+	{
+	return $('#search_box').val();
 	}
 
 	function UpdateBusiness(element) {
@@ -429,12 +431,19 @@
 					style : "notice"
 				});
 				data = {
-					Filter : ''
+					Filter : GetSearchBox()
 				};
 
 				LoadAllBusiness(data);
 			});
 		}
+	}
+	
+	function ConvertPhoneNumber(data)
+	{
+	 var s2 = (""+s).replace(/\D/g, '');
+	var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+	return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
 	}
 
 	function DeleteBusiness(element, data) {
@@ -448,7 +457,7 @@
 			});
 
 			data = {
-				Filter : ''
+				Filter : GetSearchBox()
 			};
 
 			LoadAllBusiness(data);
@@ -523,7 +532,7 @@
 						style : "notice"
 					});
 					data = {
-						Filter : ''
+						Filter : GetSearchBox()
 					};
 
 					LoadAllBusiness(data);
@@ -663,7 +672,7 @@
 
 		$("#search-business").click(function () {
 			var data = {};
-			data.Filter = $('#search_box').val();
+			data.Filter = GetSearchBox()
 			LoadAllBusiness(data);
 		});
 

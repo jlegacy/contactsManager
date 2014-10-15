@@ -3,7 +3,13 @@
 	<% $.each(categories, function(i, category){ %> 
 		<li class="businessHeader">
 		<a href="javascript://" data-category="<%= category.BBusId %>">
-				<%= category.BName %> 
+			Name: <%= category.BName %>
+			</a>
+			<a href="javascript://" data-category="<%= category.BBusId %>">
+			Phone1: <%= category.BDPhone1 %> 
+			</a>
+			<a href="javascript://" data-category="<%= category.BBusId %>">
+			Email: <%= category.BEmail %>
 			</a>
 		</li>
 		<div id="menu-container" class="span5"></div>
