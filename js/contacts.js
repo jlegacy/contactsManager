@@ -174,8 +174,6 @@
 				if (valid) {
 					data = can.deparam(form.serialize());
 					UpdateUserDefinedServer(data, function (values, response) {
-						console.log(response);
-						console.log(values);
 						$.growl({
 							title : "RoloMax",
 							message : "User Defined Updated..",
@@ -198,7 +196,7 @@
 							data = {
 								User : data.Contact = $.data($("#storedData")[0], 'user')
 							};
-							
+
 							$(this).dialog("close");
 							DeleteUserServer(data, function (values, response) {
 								$.growl({
@@ -206,11 +204,11 @@
 									message : "User Deleted..",
 									style : "notice"
 								});
-								
+
 								data = {};
 								data.Business = $.data($("#storedData")[0], 'business');
 								data.Contact = $.data($("#storedData")[0], 'contact');
-								LoadUserDefined(data);	
+								LoadUserDefined(data);
 							});
 						},
 						"Cancel" : function () {
@@ -220,6 +218,15 @@
 				});
 
 			});
+			
+			$('input[name="UField"]').datepicker({
+				showOn : 'button',
+				buttonText : 'Show Date',
+				buttonImageOnly : true,
+				dateFormat: 'mm/dd/yy - D',
+				constrainInput : true,
+			});
+
 		});
 	}
 
@@ -240,8 +247,9 @@
 		$('#create').append(x);
 		$('#create').slideDown();
 
-		$('#businessButtonBar').hide();
-
+		$('#contactButtonBar').hide();
+		
+	
 		SetUpContactsEditMask();
 
 	}
@@ -632,13 +640,11 @@
 				options.data = JSON.stringify(orig.data);
 			}
 		});
-		
-		
-		$( "#showAllContacts" ).click(function() {
+
+		$("#showAllContacts").click(function () {
 			$('.contact').show();
 		});
-		
-		
+
 		$("body").delegate("#contactSave", "click", function () {
 			var form = $('#create').find('form');
 
@@ -740,7 +746,7 @@
 			$.data($("#storedData")[0], "business", $(this).attr('data-category'));
 
 			LoadContacts($(this).attr('data-category'));
-			
+
 			$('#users').html("");
 		});
 
@@ -755,18 +761,20 @@
 
 			data.Business = $.data($("#storedData")[0], 'business');
 			data.Contact = $.data($("#storedData")[0], 'contact');
-			 
+
 			$('.contact').not('.active').slideUp(200);
-			
+
 			LoadUserDefined(data);
-			
-			$("html, body").animate({ scrollTop: 0 }, "slow");
+
+			$("html, body").animate({
+				scrollTop : 0
+			}, "slow");
 		});
 
 		$('#users').delegate("li", "click", function () {
 
 			var data = {};
-			
+
 			//store data in dom
 			$.data($("#storedData")[0], "user", $(this).find('input[name=UUsrId').val());
 

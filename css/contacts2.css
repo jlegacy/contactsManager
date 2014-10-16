@@ -75,7 +75,7 @@
 	float: left;
 	width: 30%;
 	padding: 19px 0;
-	margin: 0 2%;
+	margin: 0 1%;
 	display: inline;
 }
 
@@ -100,7 +100,7 @@
 #content
 {
 	float: left;
-	width: 30%;
+	width: 24%;
 	padding: 20px 0;
 	margin: 0 0 0 2%;
 }
@@ -109,11 +109,12 @@
 
 #aside
 {
-	float: right;
-	width: 31%;
+	float: left;
+	width: 32%;
 	padding: 20px 0;
 	margin: 0 2% 0 0;
 	display: inline;
+	margin-left:35px;
 }
 
 #aside h3 { margin: 0; }
@@ -133,12 +134,13 @@ h1 {
 }
 
 #new-contact {
-	margin-bottom: 10px;
+
 }
 
 #create {
 	z-index: 1;
 	position: relative;
+	background: lightgoldenrodyellow;
 	/* margin-left: -20px; */
 }
 
@@ -152,6 +154,17 @@ h1 {
 	list-style:none;
 }
 
+#users label {
+	margin-top:5px;
+}
+
+#users button {
+	margin-bottom:10px;
+}
+
+
+
+
 .phoneDrop{
 	position:absolute;
 	margin-top: -37px;
@@ -160,16 +173,13 @@ h1 {
 
 
 #contacts{
-	/* float: left; */
-
-	width: 403px;
+	float: left;
+	margin-left:0px;
 }
 
 
 #users{
 	float: left;
-
-	/* width: 536px; */
 }
 
 
@@ -183,9 +193,22 @@ h1 {
 	position: relative;
 	background: #ffffff;
 }
+ 
+.updateUserButton{
+	
+}
+
+.deleteUserButton{
+	
+}
+
 
 .contact .buttons {
 	margin-top: 10px;
+}
+
+.hidden{
+	height:0px;
 }
 
 .contact form {
@@ -306,12 +329,25 @@ margin-bottom:10px;
 .businessHeader a{
 margin-left:5px !important;
 }
+
+#userButtonBar{
+	position:absolute;
+	margin-top: -5px;
+	margin-left: 400px;
+}
+
+#userButtonBar button{
+	margin:5px;
+	width:100px;
+}
+
 .center{
  margin-left: auto;
     
  margin-right: auto;
     
  width: 70%;
+ text-align: center;
 }
 
 #container {
@@ -325,6 +361,7 @@ margin-left:5px !important;
   #left, #right, #middle {
     display: table-cell;
     }
+
 
 .float-left{
 float:left;
@@ -362,6 +399,54 @@ width: 50px;
 }
 
 
+.ui-datepicker-trigger
+{
+margin-top: -38px;
+margin-left: -85px;
+height: 25px; 
+width: 25px;
+padding-right: 10px;
+cursor: pointer;	 
+background-image: url("../img/icons.png");
+background-position: -3px -64px;
+background-repeat: repeat-x;
+position: absolute;
+ }
+
+ 
+ .userButtons{
+	 position: absolute;
+	 margin-top: -38px;
+	 margin-left: 384px;
+ }
+
+.calendarIcon{
+
+ margin-top: -39px;
+ 
+
+ margin-left: -85px;
+   
+ height: 25px; 
+ 
+
+ width: 25px;
+    padding-right: 10px;
+    cursor: pointer;
+ 	 background-image: url("../img/icons.png");
+	 	   
+
+ background-position: 1px -64px;
+    background-repeat: repeat-x;
+ 
+
+ /* border: red; */
+
+ position: absolute;
+
+}
+
+
 #section-navigation .scrollbar-external{
 width: auto;
 }
@@ -388,6 +473,12 @@ background-position: -99px -4px;
     background-repeat: repeat-x;
 }
 
+.centerButtons{
+text-align: center;
+margin: 0 auto;
+width:auto;
+text-align: center;
+}
 .userLogo{
  height: 35px; 
  width: 35px;
@@ -518,6 +609,7 @@ width:100%;
 	margin-bottom: 5px;
 	padding: 10px;
 	background: lightsalmon;
+	height:70px
 }
 
 .user.hero-unit {
@@ -554,7 +646,7 @@ width:100%;
 width: 484px;
 }
 .user input, .user select {
-	width: 120px;
+	width: 277px;
 }
 
 .user input {
