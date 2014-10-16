@@ -1,41 +1,68 @@
-<a href="javascript://" class="remove"><i class="icon-remove"></i></a>
 <form>
 	<div class="row">
 		<div class="span2">
 			<div class="iconImage"></div> 
 		</div>
-		<div class="span3">
-			<input type="text" name="CLastName" class="inputEdit" placeholder="Last Name" 
-				<%= "value=" + contact.CLastName%>>
-		</div>
-		<div class="span3">
-	
-				<label>First Name</label>
-			<input type="text" class="inputEdit" name="CFirstName" 
-				<%="value=" + contact.CFirstName%>>
-				<label>Position</label>
-			<input type="text" class="inputEdit" name="CPosition" 
-				<%="value=" + contact.CPosition%>>
+		<div class="span5">
+		
+			<div class="span5">
+			<label>Last Name</label>
+			<input type="text" Required  name="CLastName" class="inputEdit" placeholder="Last Name" 
+			<%= "value=" + contact.CLastName%>>
+			</div>
+		
+			<div class="span5">
+			<label>First Name</label>
+			<input type="text" Required  class="inputEdit" name="CFirstName" 
+			<%="value=" + contact.CFirstName%>>
+			</div>
+				
+			<div class="span5">
+			<label>Position</label>
+			<input type="text" Required class="inputEdit" name="CPosition" 
+			<%="value=" + contact.CPosition%>>
+			</div>
+				
+			
+			<div class="span5">			
 			<label>Phone</label>
-			<input type="text" class="inputEdit" name="CPhone1" 
-				<%="value=" + contact.CPhone1%>>
-			<label>Email</label>
-			<input type="text" class="inputEdit" name="CEmail" 
-				<%="value=" + contact.CEmail%>>
+			
+			<input type="text" Class="inputEdit width75" name="CPhone1" 
+				<%= contact.CPhone1 ? "value=" + contact.CPhone1  : "class='empty'" %>>
+			<div class="phoneDrop"><select name = "CPhone1Fax" class="width100 margin-left10"> 
+					<option value="" <% if (contact.CPhone1Fax == '') { %>selected<% } %> ></option>
+					<option value="n" <% if (contact.CPhone1Fax == 'n') { %>selected<% } %> >Phone</option>
+					<option value="y" <% if (contact.CPhone1Fax == 'y') { %>selected<% } %> >Fax</option>
+				</select></div>
+		
+			</div>
+					
+			<div class="span5">	
+			<div><label>Email</label></div>
+			<div><input type="email" class="inputEdit" name="CEmail" 
+				<%="value=" + contact.CEmail%>></div>
+			</div>
+			
+			<div class="span5">
 			<label>Phone2</label>
-			<input type="text" class="inputEdit" name="CPhone2" 
-				<%="value=" + contact.CPhone2%>>
-				<label>Phone1 Fax</label>
-			<input type = "text" class="inputEdit" name = "CPhone1Fax"
-				<%="value=" + contact.CPhone1Fax%>>
-				<label>Phone2 Fax</label> 
-			<input type = "text" class="inputEdit" name = "CPhone2Fax"
-				<%="value=" + contact.CPhone2Fax%>>
-					<input class="hidden" type="text" name="CConId" 
-				<%="value=" + contact.CConId%>>
+			<input type="text" Class="inputEdit width75" name="CPhone2" 
+				<%= contact.CPhone2 ? "value=" + contact.CPhone2  : "class='empty'" %>>
+				<div class="phoneDrop"><select name = "CPhone2Fax" class="width100 margin-left10"> 
+					<option value="" <% if (contact.CPhone2Fax == '') { %>selected<% } %> ></option>
+					<option value="n" <% if (contact.CPhone2Fax == 'n') { %>selected<% } %> >Phone</option>
+					<option value="y" <% if (contact.CPhone2Fax == 'y') { %>selected<% } %> >Fax</option>
+				</select></div>
+			</div>
+				
+			<input class="hidden" type="text" name="CConId" 
+			<%="value=" + contact.CConId%>>
+			
 			<input class="hidden" class="inputEdit" type="text" name="CBusId"
 				<%="value=" + contact.CBusId%>>
-			
 		</div>
+	</div>
+		<div id="contactButtonBar" class="center margin-bottom-10"> 
+	<button id=<%=contact.CConId%> class="updateContactButton">Update</button>
+	<button id=<%=contact.CConId%> class="deleteContactButton">Delete</button>
 	</div>
 </form>

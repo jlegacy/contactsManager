@@ -18,20 +18,16 @@
 
     <div id="container">
         <div id="header">
-            <h1>
-			Site name
-		</h1>
+			<div class="contactsLogo"></div>
         </div>
         <div id="navigation">
             <ul>
                 <li>
 
-                    <div><a class="btn btn-large btn-primary" href="javascript://" id="search-business"><i class="icon icon-white"></i>Search Business</a>
-                    </div>
-                    <div>
+                    <div class="search-section">Search Business
                         <input id="search_box" class="search_box"></input>
-						<div class="iconSearch"><div>
-                    </div>
+						<div id="search-business"class="iconSearch"><div>
+                   </div>
                 </li>
             </ul>
         </div>
@@ -54,37 +50,13 @@
                         </div>
                 </div>
                 <div id="content">
-                    <h2>
-					Page heading
-				</h2>
                     <a class="btn btn-large btn-primary" href="javascript://" id="new-contact"><i class="icon-plus icon-white"></i>New Contact</a>
-                    <nav id="filter"></nav>
-                    <div class="span9">
+						<div id="showAllContacts" class="showAllContactsIcon"></div>
                         <div id="create"></div>
-
-                        <div class="scrollbar-external_wrapper">
-                            <div id="contacts" class="scrollbar-external">
-
-                            </div>
-
-                            <div class="external-scroll_x">
-                                <div class="scroll-element_outer">
-                                    <div class="scroll-element_size"></div>
-                                    <div class="scroll-element_track"></div>
-                                    <div class="scroll-bar"></div>
-                                </div>
-                            </div>
-
-                            <div class="external-scroll_y">
-                                <div class="scroll-element_outer">
-                                    <div class="scroll-element_size"></div>
-                                    <div class="scroll-element_track"></div>
-                                    <div class="scroll-bar"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    
+                            <div class="span5" id="contacts"></div>
+   
+                
                 </div>
                 <div id="aside">
                     <a class="btn btn-large btn-primary" href="javascript://" id="new-user"><i class="icon-plus icon-white"></i>New User Field</a>
@@ -94,11 +66,9 @@
                     <p>
                         User Defined Information
                     </p>
-                    <div id="createUser"> </div>
+                    <div id="createUser"></div>
 
-                    <div id="users" class="scrollbar-external">
-
-                    </div>
+                    <div id="users"></div>
                 </div>
                 <div id="footer">
                     Copyright © Site name, 20XX

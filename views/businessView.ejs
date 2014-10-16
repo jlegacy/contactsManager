@@ -4,30 +4,30 @@
 			<img srb="img/Business.png" width="100" height="100">
 		</div>
 		<div class="span5">
-		<div class="span5 floatleft">
-		<label class="floatleft" for="BName">Name</label>
+		<div class="span5">
+		<label for="BName">Name</label>
 		<input type="text" Required  name="BName" Class="inputEdit"
 					<%= business.BName ? "value=" + business.BName  : "class='empty'" %>>
 		</div>
-		<div class="span5 floatleft">
+		<div class="span5">
 					<label for="BCity" class="float-left">City</label>
 			<input type="text" Required Class="inputEdit float-left width150" name="BCity"
 			
 			<%= business.BCity ? "value=" + business.BCity  : "class='empty'" %>>
 				
 				</div>
-				<div class="span5 floatleft">
-					<label class="floatleft">State</label>
+				<div class="span5">
+					<label>State</label>
 			<input type="text" Required Class="inputEdit float-left width50" name="BState" 
 					<%= business.BState ? "value=" + business.BState  : "class='empty'" %>>
 				</div>
-				<div class="span5 floatleft">
-					<label class="floatleft">Address</label>
+				<div class="span5">
+					<label>Address</label>
 			<input type="text" Required Class="inputEdit" name="BAddress" 
 					<%= business.BAddress ? "value=" + business.BAddress  : "class='empty'" %>>
 				</div>
-				<div class="span5 floatleft">
-			<label class="floatleft">Phone</label>
+				<div class="span5">
+			<label>Phone</label>
 			<input type="text" Number Required Class="inputEdit width75" name="BPhone1" 
 					<%= business.BPhone1 ? "value=" + business.BPhone1  : "class='empty'" %>>
 				<select name = "BPhone1Fax" class="width100 margin-left10"> 
@@ -36,13 +36,13 @@
 				<option value="y" <% if (business.BPhone1Fax == 'y') { %>selected<% } %> >Fax</option>
 					</select>
 				</div>
-				<div class="span5 floatleft">
-			<label class="floatleft">Email</label>
+				<div class="span5">
+			<label>Email</label>
 			<input type="email" Class="inputEdit" name="BEmail" 
 					<%= business.BEmail ? "value=" + business.BEmail  : "class='empty'" %>>
 				</div>
-				<div class="span5 floatleft">
-			<label class="floatleft">Phone2</label>
+				<div class="span5">
+			<label>Phone2</label>
 			<input type="text" Class="inputEdit width75" name="BPhone2" 
 					<%= business.BPhone2 ? "value=" + business.BPhone2  : "class='empty'" %>>
 					<select name = "BPhone2Fax" class="width100 margin-left10"> 
@@ -57,7 +57,7 @@
 			
 		</div>
 	</div>
-	<div id="businessButtonBar" class="center margin-botton-10">
+	<div id="businessButtonBar" class="center margin-bottom-10">
 	<button id=<%=business.BBusId%> class="updateBusinessButton">Update</button>
 	<button id=<%=business.BBusId%> class="deleteBusinessButton">Delete</button>
 	</div>

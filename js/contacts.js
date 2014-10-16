@@ -81,15 +81,145 @@
 			$('#contacts').html(can.view('views/contactsList.ejs', {
 					contacts : data
 				}));
+			//Set Up Phone Mask on All Phone Numbers//
+			SetUpContactsEditMask();
+
+			$(".updateContactButton").button({
+				icons : {
+					primary : "ui-icon-gear",
+					secondary : "ui-icon-triangle-1-s"
+				}
+			});
+			$(".deleteContactButton").button({
+				icons : {
+					primary : "ui-icon-gear",
+					secondary : "ui-icon-triangle-1-s"
+				}
+			});
+
+			$("body").off("click", ".updateContactButton");
+			$("body").delegate(".updateContactButton", "click", function () {
+
+				event.preventDefault();
+				var form = $(this).closest('form');
+
+				data = can.deparam(form.serialize());
+				data.CPhone1 = data.CPhone1.replace(/\D/g, '');
+				data.CPhone2 = data.CPhone2.replace(/\D/g, '');
+
+				var x = new Parsley(form);
+				var valid = x.validate();
+
+				if (valid) {
+					UpdateContactServer(data, function (values) {
+						$.growl({
+							title : "RoloMax",
+							message : "Contact Updated..",
+							style : "notice"
+						});
+					});
+				}
+			});
+
+			$("body").off("click", ".deleteContactButton");
+			$(".deleteContactButton").click(function (event) {
+				var element = $(this);
+				event.preventDefault();
+				var data = {};
+				$("#MessageConfirm").dialog({
+					buttons : {
+						"Confirm" : function () {
+							data.Contact = element.attr('id');
+							DeleteContact(data);
+							$(this).dialog("close");
+						},
+						"Cancel" : function () {
+							$(this).dialog("close");
+						}
+					}
+				});
+
+			});
 		});
 	}
 
 	function LoadUserDefined(data) {
 		GetUserServer(data, function (data) {
+
 			$('#users').html("");
 			$('#users').html(can.view('views/userList.ejs', {
 					user : data
 				}));
+
+			$(".updateUserButton").button({
+				icons : {
+					primary : "ui-icon-gear",
+					secondary : "ui-icon-triangle-1-s"
+				}
+			});
+
+			$(".deleteUserButton").button({
+				icons : {
+					primary : "ui-icon-gear",
+					secondary : "ui-icon-triangle-1-s"
+				}
+			});
+			$(".updateUserButton").click(function (event) {
+				event.preventDefault();
+
+				var form = $(this).closest('form');
+				var x = new Parsley(form);
+				var valid = x.validate();
+
+				if (valid) {
+					data = can.deparam(form.serialize());
+					UpdateUserDefinedServer(data, function (values, response) {
+						console.log(response);
+						console.log(values);
+						$.growl({
+							title : "RoloMax",
+							message : "User Defined Updated..",
+							style : "notice"
+						});
+					});
+				}
+
+			});
+
+			$(".deleteUserButton").click(function (event) {
+
+				var element = $(this);
+				event.preventDefault();
+				var data = {};
+				$("#MessageConfirm").dialog({
+					buttons : {
+						"Confirm" : function () {
+							var data = {};
+							data = {
+								User : data.Contact = $.data($("#storedData")[0], 'user')
+							};
+							
+							$(this).dialog("close");
+							DeleteUserServer(data, function (values, response) {
+								$.growl({
+									title : "RoloMax",
+									message : "User Deleted..",
+									style : "notice"
+								});
+								
+								data = {};
+								data.Business = $.data($("#storedData")[0], 'business');
+								data.Contact = $.data($("#storedData")[0], 'contact');
+								LoadUserDefined(data);	
+							});
+						},
+						"Cancel" : function () {
+							$(this).dialog("close");
+						}
+					}
+				});
+
+			});
 		});
 	}
 
@@ -110,6 +240,10 @@
 		$('#create').append(x);
 		$('#create').slideDown();
 
+		$('#businessButtonBar').hide();
+
+		SetUpContactsEditMask();
+
 	}
 
 	function HideAddContact() {
@@ -128,6 +262,15 @@
 		stateAutoComplete.autocomplete({
 			source : availableStates
 		});
+	}
+
+	function SetUpContactsEditMask() {
+		//Set Up Phone Mask on All Phone Numbers//
+		var dateBoxes = $("input[name='CPhone1']");
+		dateBoxes.mask("(999) 999-9999");
+
+		var dateBoxes = $("input[name='CPhone2']");
+		dateBoxes.mask("(999) 999-9999");
 	}
 
 	function ShowAddBusiness() {
@@ -168,6 +311,7 @@
 		$('#createUser').append(x);
 		$('#createUser').slideDown();
 
+		$('#userButtonBar').hide();
 	}
 
 	function HideAddBusiness() {
@@ -346,7 +490,7 @@
 	function LoadAllBusiness(data) {
 
 		findAllBusiness(data, function (response) {
-	
+
 			LoadBusiness(response);
 
 			//Set Up Phone Mask on All Phone Numbers//
@@ -397,20 +541,20 @@
 				});
 
 			});
+
 			$(".business").hide();
 
-		/*	// update perfect scrollbar
+			/*	// update perfect scrollbar
 			jQuery('.scrollbar-vista').scrollbar({
-				"showArrows" : true,
-				"type" : "advanced"
+			"showArrows" : true,
+			"type" : "advanced"
 			});*/
 
 		});
 	}
-	
-	function GetSearchBox()
-	{
-	return $('#search_box').val();
+
+	function GetSearchBox() {
+		return $('#search_box').val();
 	}
 
 	function UpdateBusiness(element) {
@@ -438,12 +582,11 @@
 			});
 		}
 	}
-	
-	function ConvertPhoneNumber(data)
-	{
-	 var s2 = (""+s).replace(/\D/g, '');
-	var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
-	return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+
+	function ConvertPhoneNumber(data) {
+		var s2 = ("" + s).replace(/\D/g, '');
+		var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+		return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
 	}
 
 	function DeleteBusiness(element, data) {
@@ -464,6 +607,19 @@
 		});
 	}
 
+	function DeleteContact(data) {
+		DeleteContactServer(data, function (values) {
+
+			LoadContacts($.data($("#storedData")[0], 'business'));
+			$.growl({
+				title : "RoloMax",
+				message : "Contact Deleted..",
+				style : "notice"
+			});
+
+		});
+	}
+
 	$(document).ready(function () {
 
 		var storeData = $('#storedData')[0];
@@ -476,23 +632,39 @@
 				options.data = JSON.stringify(orig.data);
 			}
 		});
-
+		
+		
+		$( "#showAllContacts" ).click(function() {
+			$('.contact').show();
+		});
+		
+		
 		$("body").delegate("#contactSave", "click", function () {
 			var form = $('#create').find('form');
-			var values = can.deparam(form.serialize());
-			CreateContactServer(values, function (result) {
-				$('#create').slideUp();
-				LoadContacts($.data($("#storedData")[0], 'business'));
-				$.growl({
-					title : "RoloMax",
-					message : "Contact Created..",
-					style : "notice"
+
+			var data = can.deparam(form.serialize());
+			data.CPhone1 = data.CPhone1.replace(/\D/g, '');
+			data.CPhone2 = data.CPhone2.replace(/\D/g, '');
+
+			var x = new Parsley(form);
+			var valid = x.validate();
+
+			if (valid) {
+				CreateContactServer(data, function (result) {
+					$('#create').slideUp();
+					LoadContacts($.data($("#storedData")[0], 'business'));
+					$.growl({
+						title : "RoloMax",
+						message : "Contact Created..",
+						style : "notice"
+					});
 				});
-			});
+			}
 		});
 
 		$("body").delegate("#userSave", "click", function () {
 			var form = $('#createUser').find('form');
+			var data = {};
 			var values = can.deparam(form.serialize());
 			CreateUserDefinedServer(values, function (result) {
 				$('#createUser').slideUp();
@@ -568,7 +740,8 @@
 			$.data($("#storedData")[0], "business", $(this).attr('data-category'));
 
 			LoadContacts($(this).attr('data-category'));
-
+			
+			$('#users').html("");
 		});
 
 		$('#contacts').delegate("li", "click", function () {
@@ -582,16 +755,18 @@
 
 			data.Business = $.data($("#storedData")[0], 'business');
 			data.Contact = $.data($("#storedData")[0], 'contact');
-
+			 
+			$('.contact').not('.active').slideUp(200);
+			
 			LoadUserDefined(data);
+			
+			$("html, body").animate({ scrollTop: 0 }, "slow");
 		});
 
 		$('#users').delegate("li", "click", function () {
 
 			var data = {};
-			$("#contacts li").removeClass('active');
-			var x = $(this).addClass('active');
-
+			
 			//store data in dom
 			$.data($("#storedData")[0], "user", $(this).find('input[name=UUsrId').val());
 
@@ -609,71 +784,10 @@
 			ShowAddUser();
 		});
 
-		$("body").delegate("#contacts .inputEdit", "change", function () {
-			var form = $(this).closest('form');
-			data = can.deparam(form.serialize());
-			UpdateContactServer(data, function (values) {
-				$.growl({
-					title : "RoloMax",
-					message : "Contact Updated..",
-					style : "notice"
-				});
-			});
-		});
-
-		$("body").delegate("#users .inputEdit", "change", function () {
-			var form = $(this).closest('form');
-			data = can.deparam(form.serialize());
-			UpdateUserDefinedServer(data, function (values, response) {
-				console.log(response);
-				console.log(values);
-				$.growl({
-					title : "RoloMax",
-					message : "User Defined Updated..",
-					style : "notice"
-				});
-			});
-		});
-
-		$("body").delegate(".remove", "click", function () {
-			var data;
-
-			var x = $(this).closest('li').find('input[name="CConId"]').val();
-			var y = $(this).closest('li');
-			data = {
-				Contact : x
-			};
-			DeleteContactServer(data, function (values) {
-				y.remove();
-				$.growl({
-					title : "RoloMax",
-					message : "Contact Deleted..",
-					style : "notice"
-				});
-			});
-		});
-
-		$("body").delegate(".userRemove", "click", function () {
-			var data = {};
-			var y = $(this).closest('li');
-			data = {
-				User : data.Contact = $.data($("#storedData")[0], 'user')
-			};
-			DeleteUserServer(data, function (values, response) {
-				console.log(values, response);
-				y.remove();
-				$.growl({
-					title : "RoloMax",
-					message : "User Deleted..",
-					style : "notice"
-				});
-			});
-		});
-
 		$("#search-business").click(function () {
 			var data = {};
 			data.Filter = GetSearchBox()
-			LoadAllBusiness(data);
+				LoadAllBusiness(data);
 		});
 
 	});

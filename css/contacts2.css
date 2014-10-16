@@ -25,11 +25,23 @@
 	margin: 0;
 	padding: 0;
 }
+.search-section
+{
+	padding: 8px;
+	color: lightblue;
+	font-size: 2em;
+	display: inline-block;
+	
+}
 
 #navigation ul li
 {
 	list-style-type: none;
 	display: inline;
+}
+
+.search_box{
+	margin-left: 10px;
 }
 
 #navigation li a
@@ -98,7 +110,7 @@
 #aside
 {
 	float: right;
-	width: 30%;
+	width: 31%;
 	padding: 20px 0;
 	margin: 0 2% 0 0;
 	display: inline;
@@ -127,15 +139,39 @@ h1 {
 #create {
 	z-index: 1;
 	position: relative;
+	/* margin-left: -20px; */
 }
 
 #contacts ul {
-	margin-left:0;list-style:none;
+	margin-left:0;
+	list-style:none;
 }
 
-#contacts{
-width:500px;
+#users ul {
+	margin-left:0;
+	list-style:none;
 }
+
+.phoneDrop{
+	position:absolute;
+	margin-top: -37px;
+	margin-left: 153px;
+}
+
+
+#contacts{
+	/* float: left; */
+
+	width: 403px;
+}
+
+
+#users{
+	float: left;
+
+	/* width: 536px; */
+}
+
 
 .contact {
 	border: 1px solid #ccc;
@@ -145,6 +181,7 @@ width:500px;
 	margin-bottom: 5px;
 	padding: 10px;
 	position: relative;
+	background: #E0FFFF;
 }
 
 .contact .buttons {
@@ -162,25 +199,18 @@ width:500px;
 	width: 60px;
 }
 
-.contact form input {
-	margin-left: 10px;
-	margin-bottom: 0;
-}
 
 .contact label {
 	font-weight: bold;
 }
 
-.contact input, .contact select {
-	width: 120px;
-}
 
 .hidden {
 	visibility: hidden;
 }
 
 #contacts .active{
-	background:lightyellow;
+	background: lightblue;
 }
 .contact input {
 	border: 1px solid #fff;
@@ -256,6 +286,10 @@ height:200px;
 	width: 65px;
 }
 
+.contact form label{
+	padding-right:5px;
+}
+
 .ui-autocomplete { height: 100px; overflow-y: auto; overflow-x: auto; width: 100px;}   
 
 .business form input {
@@ -274,8 +308,10 @@ margin-left:5px !important;
 }
 .center{
  margin-left: auto;
-    margin-right: auto;
-    width: 70%;
+    
+ margin-right: auto;
+    
+ width: 70%;
 }
 
 #container {
@@ -330,7 +366,7 @@ width: 50px;
 width: auto;
 }
 
-.businessShrink{
+.businessShrink{ 
  margin-top: -38px;
  margin-left: -20px;
  height: 25px; 
@@ -339,7 +375,7 @@ width: auto;
     cursor: pointer;
  	 background-image: url("../img/icons.png"); 	   
 background-position: -99px -4px;
-    background-repeat: repeat-x;
+    background-repeat: repeat-x; 
 }
 
 .iconImage{
@@ -352,10 +388,42 @@ background-position: -99px -4px;
     background-repeat: repeat-x;
 }
 
+.userLogo{
+ height: 35px; 
+ width: 35px;
+    padding-right: 10px;
+    cursor: pointer;
+ 	 background-image: url("../img/icons.png"); 	   
+ background-position: 393px -108px;
+    background-repeat: repeat-x;
+}
+
+.showAllContactsIcon{
+ height: 35px; 
+ width: 35px;
+    padding-right: 10px;
+    cursor: pointer;
+ 	 background-image: url("../img/icons.png"); 	   
+ background-position: 56px -162px;
+    background-repeat: repeat-x;
+}
+
+.contactsLogo{
+ height: 254px; 
+ width: 85px;
+    
+ padding-right: 10px;
+    cursor: pointer;
+ 	 background-image: url("../img/contact-icon.png"); 	   
+ background-position: 286px -19px;
+    background-repeat: repeat-x;
+}
+
+
 .iconSearch{
 	position:relavtive;
-	margin-top: -30px;
-	margin-left: 350px;
+	margin-top: -33px;
+	margin-left: 408px;
  height: 24px; 
  width: 24px;
     cursor: pointer;
@@ -384,7 +452,7 @@ width: 200px;
 }
 
 .width300{
-width: 300px;
+width: 300px !important;
 }
 
 
@@ -449,7 +517,13 @@ width:100%;
 	border-radius: 5px;
 	margin-bottom: 5px;
 	padding: 10px;
-	position: relative;
+	background: lightsalmon;
+}
+
+.user.hero-unit {
+	
+	background: #f5f5f5;
+	margin-left: -2px;
 }
 
 .user .buttons {
@@ -469,7 +543,7 @@ width:100%;
 
 .user form input {
 	margin-left: 10px;
-	margin-bottom: 0;
+	padding:5px;
 }
 
 .user label {
@@ -477,7 +551,7 @@ width:100%;
 }
 
 .user{
-width:250px;
+width: 484px;
 }
 .user input, .user select {
 	width: 120px;
@@ -560,8 +634,8 @@ h1 {
 
 /* footer CSS Style Rule */
 #header {
-    height: 90px;
-    background-color: rgb(232, 232, 253);
+    height: 63px;
+    background-color: lightblue ;
 }
 
 /* footer CSS Style Rule */
