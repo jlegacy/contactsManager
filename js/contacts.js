@@ -126,7 +126,15 @@
 				var element = $(this);
 				event.preventDefault();
 				var data = {};
-				$("#MessageConfirm").dialog({
+				$("#ContactDeleteConfirm").dialog({
+					modal : true,
+					draggable : false,
+					resizable : false,
+					position : ['center', 'center'],
+					show : 'blind',
+					hide : 'blind',
+					width : 400,
+					dialogClass : 'ui-dialog-osx',
 					buttons : {
 						"Confirm" : function () {
 							data.Contact = element.attr('id');
@@ -140,6 +148,8 @@
 				});
 
 			});
+
+			$('#showAllContacts').removeClass('expandLogo').addClass('shrinkLogo');
 		});
 	}
 
@@ -189,7 +199,15 @@
 				var element = $(this);
 				event.preventDefault();
 				var data = {};
-				$("#MessageConfirm").dialog({
+				$("#UserDeleteConfirm").dialog({
+					modal : true,
+					draggable : false,
+					resizable : false,
+					position : ['center', 'center'],
+					show : 'blind',
+					hide : 'blind',
+					width : 400,
+					dialogClass : 'ui-dialog-osx',
 					buttons : {
 						"Confirm" : function () {
 							var data = {};
@@ -218,12 +236,12 @@
 				});
 
 			});
-			
+
 			$('input[name="UField"]').datepicker({
 				showOn : 'button',
 				buttonText : 'Show Date',
 				buttonImageOnly : true,
-				dateFormat: 'mm/dd/yy - D',
+				dateFormat : 'mm/dd/yy - D',
 				constrainInput : true,
 			});
 
@@ -236,6 +254,18 @@
 
 		data.CConId = createGuid();
 		data.CBusId = $('#filter').find('.active').find('a').attr('data-category')
+		
+		if (data.CBusId)
+		{}
+		else
+		{
+		$.growl({
+					title : "Error",
+					message : "Select Business First..",
+					style : "error"
+				});
+		return;
+		}
 
 			var x = (can.view('views/createView.ejs', {
 					contact : data,
@@ -248,8 +278,7 @@
 		$('#create').slideDown();
 
 		$('#contactButtonBar').hide();
-		
-	
+
 		SetUpContactsEditMask();
 
 	}
@@ -307,8 +336,21 @@
 		var data = {};
 
 		data.UUsrId = createGuid();
-		data.UBusId = $("#storedData").data('business');
-		data.UConId = $("#storedData").data('contact');
+		data.UBusId = $.data($("#storedData")[0], 'business');
+		data.UConId = $.data($("#storedData")[0], 'contact');
+		
+		
+		if ((data.UBusId) && (data.UConId))
+		{}
+		else
+		{
+		$.growl({
+					title : "Error",
+					message : "Select Business and Contact First..",
+					style : "error"
+				});
+		return;
+		}
 
 		var x = (can.view('views/createUser.ejs', {
 				user : data
@@ -535,7 +577,15 @@
 				event.preventDefault();
 				var element = $(this);
 				var data = {};
-				$("#MessageConfirm").dialog({
+				$("#BusinessDeleteConfirm").dialog({
+					modal : true,
+					draggable : false,
+					resizable : false,
+					position : ['center', 'center'],
+					show : 'blind',
+					hide : 'blind',
+					width : 400,
+					dialogClass : 'ui-dialog-osx',
 					buttons : {
 						"Confirm" : function () {
 							data.Business = element.attr('id');
@@ -642,7 +692,14 @@
 		});
 
 		$("#showAllContacts").click(function () {
-			$('.contact').show();
+
+			$(this).toggleClass("expandLogo", 0, "shrinkLogo").toggleClass("shrinkLogo", 0, "expandLogo");
+			if ($(this).hasClass("shrinkLogo")) {
+				$('.contact').slideDown(200);
+			}
+			if ($(this).hasClass("expandLogo")) {
+				$('.contact').not('.active').slideUp(200);
+			}
 		});
 
 		$("body").delegate("#contactSave", "click", function () {
@@ -719,12 +776,12 @@
 			}
 		});
 
-		$("body").delegate(".expander", "click", function () {
-			$(this).toggleClass("businessExpand", 0, "businessShrink").toggleClass("businessShrink", 0, "businessExpand");
-			if ($(this).hasClass("businessShrink")) {
+		$("#filter").delegate(".expander", "click", function () {
+			$(this).toggleClass("expandLogo", 0, "shrinkLogo").toggleClass("shrinkLogo", 0, "expandLogo");
+			if ($(this).hasClass("shrinkLogo")) {
 				$(this).next('li').slideDown(200);
 			}
-			if ($(this).hasClass("businessExpand")) {
+			if ($(this).hasClass("expandLogo")) {
 				$(this).next('li').slideUp(200);
 			}
 
@@ -746,6 +803,8 @@
 			$.data($("#storedData")[0], "business", $(this).attr('data-category'));
 
 			LoadContacts($(this).attr('data-category'));
+			
+			$.data($("#storedData")[0], "contact", '');
 
 			$('#users').html("");
 		});
@@ -764,6 +823,9 @@
 
 			$('.contact').not('.active').slideUp(200);
 
+			$('#showAllContacts').removeClass('shrinkLogo');
+			$('#showAllContacts').addClass('expandLogo');
+
 			LoadUserDefined(data);
 
 			$("html, body").animate({
@@ -781,6 +843,7 @@
 		});
 
 		$("body").delegate("#new-contact", "click", function () {
+			
 			ShowAddContact();
 		});
 
@@ -796,6 +859,14 @@
 			var data = {};
 			data.Filter = GetSearchBox()
 				LoadAllBusiness(data);
+			$('#contacts').html('');
+			$('#users').html('');
+			$('#create').slideUp(200);
+			$('#createUser').slideUp(200);
+			$.data($("#storedData")[0], "business", '');
+			$.data($("#storedData")[0], "user", '');
+			$.data($("#storedData")[0], "contact", '');
+
 		});
 
 	});
