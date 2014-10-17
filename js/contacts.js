@@ -77,12 +77,15 @@
 			var j = {
 				contacts : data
 			};
+
 			$('#contacts').html("");
 			$('#contacts').html(can.view('views/contactsList.ejs', {
 					contacts : data
 				}));
 			//Set Up Phone Mask on All Phone Numbers//
 			SetUpContactsEditMask();
+
+			$('#contacts').off();
 
 			$(".updateContactButton").button({
 				icons : {
@@ -111,12 +114,21 @@
 				var valid = x.validate();
 
 				if (valid) {
-					UpdateContactServer(data, function (values) {
-						$.growl({
-							title : "RoloMax",
-							message : "Contact Updated..",
-							style : "notice"
-						});
+					UpdateContactServer(data, function (response) {
+						if (response) {
+							$.growl({
+								title : "RoloMax",
+								message : "Contact Updated..",
+								style : "notice"
+							});
+						} else {
+							$.growl({
+								title : "RoloMax",
+								message : "Error Updating Contact..",
+								style : "warning"
+							});
+
+						}
 					});
 				}
 			});
@@ -150,6 +162,30 @@
 			});
 
 			$('#showAllContacts').removeClass('expandLogo').addClass('shrinkLogo');
+
+			$('#contacts').on("click", "li", function () {
+
+				var data = {};
+				$("#contacts li").removeClass('active');
+				var x = $(this).addClass('active');
+
+				//store data in dom
+				$.data($("#storedData")[0], "contact", $(this).find('input[name=CConId').val());
+
+				data.Business = $.data($("#storedData")[0], 'business');
+				data.Contact = $.data($("#storedData")[0], 'contact');
+
+				$('.contact').not('.active').slideUp(200);
+
+				$('#showAllContacts').removeClass('shrinkLogo');
+				$('#showAllContacts').addClass('expandLogo');
+
+				LoadUserDefined(data);
+
+				$("html, body").animate({
+					scrollTop : 0
+				}, "slow");
+			});
 		});
 	}
 
@@ -160,6 +196,8 @@
 			$('#users').html(can.view('views/userList.ejs', {
 					user : data
 				}));
+
+			$('#users').off();
 
 			$(".updateUserButton").button({
 				icons : {
@@ -174,6 +212,7 @@
 					secondary : "ui-icon-triangle-1-s"
 				}
 			});
+
 			$(".updateUserButton").click(function (event) {
 				event.preventDefault();
 
@@ -184,11 +223,19 @@
 				if (valid) {
 					data = can.deparam(form.serialize());
 					UpdateUserDefinedServer(data, function (values, response) {
-						$.growl({
-							title : "RoloMax",
-							message : "User Defined Updated..",
-							style : "notice"
-						});
+						if (response) {
+							$.growl({
+								title : "RoloMax",
+								message : "User Defined Updated..",
+								style : "notice"
+							});
+						} else {
+							$.growl({
+								title : "RoloMax",
+								message : "Error Updating User..",
+								style : "warning"
+							});
+						}
 					});
 				}
 
@@ -217,11 +264,19 @@
 
 							$(this).dialog("close");
 							DeleteUserServer(data, function (values, response) {
-								$.growl({
-									title : "RoloMax",
-									message : "User Deleted..",
-									style : "notice"
-								});
+								if (response) {
+									$.growl({
+										title : "RoloMax",
+										message : "User Defined Deleted..",
+										style : "notice"
+									});
+								} else {
+									$.growl({
+										title : "RoloMax",
+										message : "Error Deleting User Defined..",
+										style : "warning"
+									});
+								}
 
 								data = {};
 								data.Business = $.data($("#storedData")[0], 'business');
@@ -245,6 +300,14 @@
 				constrainInput : true,
 			});
 
+			$('#users').on("click", "li", function () {
+				var data = {};
+
+				//store data in dom
+				$.data($("#storedData")[0], "user", $(this).find('input[name=UUsrId').val());
+
+			});
+
 		});
 	}
 
@@ -254,18 +317,16 @@
 
 		data.CConId = createGuid();
 		data.CBusId = $('#filter').find('.active').find('a').attr('data-category')
-		
-		if (data.CBusId)
-		{}
-		else
-		{
-		$.growl({
+
+			if (data.CBusId) {}
+			else {
+				$.growl({
 					title : "Error",
 					message : "Select Business First..",
 					style : "error"
 				});
-		return;
-		}
+				return;
+			}
 
 			var x = (can.view('views/createView.ejs', {
 					contact : data,
@@ -338,18 +399,15 @@
 		data.UUsrId = createGuid();
 		data.UBusId = $.data($("#storedData")[0], 'business');
 		data.UConId = $.data($("#storedData")[0], 'contact');
-		
-		
-		if ((data.UBusId) && (data.UConId))
-		{}
-		else
-		{
-		$.growl({
-					title : "Error",
-					message : "Select Business and Contact First..",
-					style : "error"
-				});
-		return;
+
+		if ((data.UBusId) && (data.UConId)) {}
+		else {
+			$.growl({
+				title : "Error",
+				message : "Select Business and Contact First..",
+				style : "error"
+			});
+			return;
 		}
 
 		var x = (can.view('views/createUser.ejs', {
@@ -602,11 +660,32 @@
 
 			$(".business").hide();
 
-			/*	// update perfect scrollbar
-			jQuery('.scrollbar-vista').scrollbar({
-			"showArrows" : true,
-			"type" : "advanced"
-			});*/
+			$("#filter").off();
+
+			$("#filter").on("click", ".expander", function () {
+				$(this).toggleClass("expandLogo", 0, "shrinkLogo").toggleClass("shrinkLogo", 0, "expandLogo");
+				if ($(this).hasClass("shrinkLogo")) {
+					$(this).next('li').slideDown(200);
+				}
+				if ($(this).hasClass("expandLogo")) {
+					$(this).next('li').slideUp(200);
+				}
+
+			});
+
+			$("#filter").on("click", ".businessHeader a", function () {
+
+				$("#filter li").removeClass('active');
+				var x = $(this).closest('li').addClass('active');
+				//store data in dom
+				$.data($("#storedData")[0], "business", $(this).attr('data-category'));
+
+				LoadContacts($(this).attr('data-category'));
+
+				$.data($("#storedData")[0], "contact", '');
+
+				$('#users').html("");
+			});
 
 		});
 	}
@@ -627,11 +706,19 @@
 			data.BPhone2 = data.BPhone2.replace(/\D/g, '');
 
 			UpdateBusinessServer(data, function (values, response) {
-				$.growl({
-					title : "RoloMax",
-					message : "Business Updated..",
-					style : "notice"
-				});
+				if (response) {
+					$.growl({
+						title : "RoloMax",
+						message : "Business Updated..",
+						style : "notice"
+					});
+				} else {
+					$.growl({
+						title : "RoloMax",
+						message : "Error Updating Business..",
+						style : "warning"
+					});
+				}
 				data = {
 					Filter : GetSearchBox()
 				};
@@ -651,11 +738,19 @@
 		var y = element.closest('li');
 		DeleteBusinessServer(data, function (values, response) {
 			y.remove();
-			$.growl({
-				title : "RoloMax",
-				message : "Business Deleted..",
-				style : "notice"
-			});
+			if (response) {
+				$.growl({
+					title : "RoloMax",
+					message : "Business Deleted..",
+					style : "notice"
+				});
+			} else {
+				$.growl({
+					title : "RoloMax",
+					message : "Error Deleting Business..",
+					style : "warning"
+				});
+			}
 
 			data = {
 				Filter : GetSearchBox()
@@ -666,14 +761,23 @@
 	}
 
 	function DeleteContact(data) {
-		DeleteContactServer(data, function (values) {
+		DeleteContactServer(data, function (response) {
 
 			LoadContacts($.data($("#storedData")[0], 'business'));
-			$.growl({
-				title : "RoloMax",
-				message : "Contact Deleted..",
-				style : "notice"
-			});
+
+			if (response) {
+				$.growl({
+					title : "RoloMax",
+					message : "Contact Deleted..",
+					style : "notice"
+				});
+			} else {
+				$.growl({
+					title : "RoloMax",
+					message : "Error Deleting Contact..",
+					style : "notice"
+				});
+			}
 
 		});
 	}
@@ -702,7 +806,7 @@
 			}
 		});
 
-		$("body").delegate("#contactSave", "click", function () {
+		$("body").on("click", "#contactSave", function () {
 			var form = $('#create').find('form');
 
 			var data = can.deparam(form.serialize());
@@ -713,40 +817,56 @@
 			var valid = x.validate();
 
 			if (valid) {
-				CreateContactServer(data, function (result) {
+				CreateContactServer(data, function (response) {
 					$('#create').slideUp();
 					LoadContacts($.data($("#storedData")[0], 'business'));
-					$.growl({
-						title : "RoloMax",
-						message : "Contact Created..",
-						style : "notice"
-					});
+					if (response) {
+						$.growl({
+							title : "RoloMax",
+							message : "Contact Created..",
+							style : "notice"
+						});
+					} else {
+						$.growl({
+							title : "RoloMax",
+							message : "Error Creating Contact..",
+							style : "warning"
+						});
+					}
 				});
 			}
 		});
 
-		$("body").delegate("#userSave", "click", function () {
+		$("body").on("click", "#userSave", function () {
 			var form = $('#createUser').find('form');
 			var data = {};
 			var values = can.deparam(form.serialize());
-			CreateUserDefinedServer(values, function (result) {
+			CreateUserDefinedServer(values, function (response) {
 				$('#createUser').slideUp();
 				data.Business = $.data($("#storedData")[0], 'business');
 				data.Contact = $.data($("#storedData")[0], 'contact');
 				LoadUserDefined(data);
-				$.growl({
-					title : "RoloMax",
-					message : "User Defined Created..",
-					style : "notice"
-				});
+				if (response) {
+					$.growl({
+						title : "RoloMax",
+						message : "User Defined Created..",
+						style : "notice"
+					});
+				} else {
+					$.growl({
+						title : "RoloMax",
+						message : "Error Creating User Defined..",
+						style : "warning"
+					});
+				}
 			});
 		});
 
-		$("body").delegate("#contactCancel", "click", function () {
+		$("body").on("click", "#contactCancel", function () {
 			HideAddContact();
 		});
 
-		$("body").delegate("#businessSave", "click", function () {
+		$("body").on("click", "#businessSave", function () {
 			var form = $('#createBusiness').find('form');
 			var data = can.deparam(form.serialize());
 
@@ -761,11 +881,19 @@
 				CreateBusinessServer(data, function (result, response) {
 					$('#businessCreate').slideUp();
 					HideAddBusiness();
-					$.growl({
-						title : "RoloMax",
-						message : "Business Created..",
-						style : "notice"
-					});
+					if (response) {
+						$.growl({
+							title : "RoloMax",
+							message : "Business Created..",
+							style : "notice"
+						});
+					} else {
+						$.growl({
+							title : "RoloMax",
+							message : "Error Creating Business..",
+							style : "warning"
+						});
+					}
 					data = {
 						Filter : GetSearchBox()
 					};
@@ -776,82 +904,24 @@
 			}
 		});
 
-		$("#filter").delegate(".expander", "click", function () {
-			$(this).toggleClass("expandLogo", 0, "shrinkLogo").toggleClass("shrinkLogo", 0, "expandLogo");
-			if ($(this).hasClass("shrinkLogo")) {
-				$(this).next('li').slideDown(200);
-			}
-			if ($(this).hasClass("expandLogo")) {
-				$(this).next('li').slideUp(200);
-			}
-
-		});
-
-		$("body").delegate("#businessCancel", "click", function () {
+		$("body").on("click", "#businessCancel", function () {
 			HideAddBusiness();
 		});
 
-		$("body").delegate("#userCancel", "click", function () {
+		$("body").on("click", "#userCancel", function () {
 			HideAddUser();
 		});
 
-		$("#filter").delegate(".businessHeader a", "click", function () {
+		$("body").on("click", "#new-contact", function () {
 
-			$("#filter li").removeClass('active');
-			var x = $(this).closest('li').addClass('active');
-			//store data in dom
-			$.data($("#storedData")[0], "business", $(this).attr('data-category'));
-
-			LoadContacts($(this).attr('data-category'));
-			
-			$.data($("#storedData")[0], "contact", '');
-
-			$('#users').html("");
-		});
-
-		$('#contacts').delegate("li", "click", function () {
-
-			var data = {};
-			$("#contacts li").removeClass('active');
-			var x = $(this).addClass('active');
-
-			//store data in dom
-			$.data($("#storedData")[0], "contact", $(this).find('input[name=CConId').val());
-
-			data.Business = $.data($("#storedData")[0], 'business');
-			data.Contact = $.data($("#storedData")[0], 'contact');
-
-			$('.contact').not('.active').slideUp(200);
-
-			$('#showAllContacts').removeClass('shrinkLogo');
-			$('#showAllContacts').addClass('expandLogo');
-
-			LoadUserDefined(data);
-
-			$("html, body").animate({
-				scrollTop : 0
-			}, "slow");
-		});
-
-		$('#users').delegate("li", "click", function () {
-
-			var data = {};
-
-			//store data in dom
-			$.data($("#storedData")[0], "user", $(this).find('input[name=UUsrId').val());
-
-		});
-
-		$("body").delegate("#new-contact", "click", function () {
-			
 			ShowAddContact();
 		});
 
-		$("body").delegate("#new-business", "click", function () {
+		$("body").on("click", "#new-business", function () {
 			ShowAddBusiness();
 		});
 
-		$("body").delegate("#new-user", "click", function () {
+		$("body").on("click", "#new-user", function () {
 			ShowAddUser();
 		});
 

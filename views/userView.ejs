@@ -6,10 +6,10 @@
             </div>
 
             <div class="span3">
-                <input class="inputEdit" name="UItem" required="" type="text"
-				<%= user.UItem ? "value=" + user.UItem  : "class='empty'" %>>
-                <input class="inputEdit" name="UField" required="" type="text"
-				<%= user.UField ? "value=" + user.UField  : "class='empty'" %>>
+                <input class="inputEdit" name="UItem" required type="text"
+				<%= user.UItem ? "value=" + '"' + user.UItem + '"' : "class='empty'" %>>
+                <input class="inputEdit" name="UField" required type="text"
+				<%= user.UField ? "value=" + '"' + user.UField + '"' : "class='empty'" %>>
             </div>
 
             <div id="userButtonBar" class="span1">
@@ -18,14 +18,14 @@
             </div>
 			
             <div class="hidden">
-                 <input class="inputEdit" name="UUsrId" required="" type="text"
-				<%= user.UUsrId ? "value=" + user.UUsrId  : "class='empty'" %>>
-				  <input class="inputEdit" name="UBusId" required="" type="text"
-				<%= user.UBusId ? "value=" + user.UBusId  : "class='empty'" %>>
-				  <input class="inputEdit" name="UConId" required="" type="text"
-				<%= user.UConId ? "value=" + user.UConId  : "class='empty'" %>>
-				 <input class="inputEdit" name="UType" required="" type="text"
-				<%= user.UType ? "value=" + user.UType  : "class='empty'" %>>
+                 <input class="inputEdit" name="UUsrId" type="text"
+				<%= user.UUsrId ? "value=" + '"' + user.UUsrId + '"' : "class='empty'" %>>
+				  <input class="inputEdit" name="UBusId" type="text"
+				<%= user.UBusId ?  "value=" + '"' + user.UBusId + '"' : "class='empty'" %>>
+				  <input class="inputEdit" name="UConId" type="text"
+				<%= user.UConId ?  "value=" + '"' + user.UConId + '"' : "class='empty'" %>>
+				 <input class="inputEdit" name="UType" type="text"
+				<%= user.UType ? "value=" + '"' + user.UType + '"' : "class='empty'" %>>
             </div>
         </div>
     </form>

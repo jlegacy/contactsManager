@@ -7,29 +7,29 @@
 		<div class="span5">
 		<label for="BName">Name</label>
 		<input type="text" Required  name="BName" Class="inputEdit"
-					<%= business.BName ? "value=" + business.BName  : "class='empty'" %>>
+					<%= business.BName ? "value=" + '"' + business.BName + '"' : "class='empty'" %>>
 		</div>
 		<div class="span5">
 					<label for="BCity" class="float-left">City</label>
 			<input type="text" Required Class="inputEdit float-left width150" name="BCity"
 			
-			<%= business.BCity ? "value=" + business.BCity  : "class='empty'" %>>
+			<%= business.BCity ? "value=" + '"' + business.BCity + '"' : "class='empty'" %>>
 				
 				</div>
 				<div class="span5">
 					<label>State</label>
 			<input type="text" Required Class="inputEdit float-left width50" name="BState" 
-					<%= business.BState ? "value=" + business.BState  : "class='empty'" %>>
+					<%= business.BState ? "value=" + '"' + business.BState + '"' : "class='empty'" %>>
 				</div>
 				<div class="span5">
 					<label>Address</label>
 			<input type="text" Required Class="inputEdit" name="BAddress" 
-					<%= business.BAddress ? "value=" + business.BAddress  : "class='empty'" %>>
+					<%= business.BAddress ? "value=" + '"' + business.BAddress + '"' : "class='empty'" %>>
 				</div>
 				<div class="span5">
 			<label>Phone</label>
 			<input type="text" Number Required Class="inputEdit width75" name="BPhone1" 
-					<%= business.BPhone1 ? "value=" + business.BPhone1  : "class='empty'" %>>
+					<%= business.BPhone1 ? "value=" + '"' + business.BPhone1 + '"' : "class='empty'" %>>
 				<select name = "BPhone1Fax" class="width100 margin-left10"> 
 				<option value="" <% if (business.BPhone1Fax == '') { %>selected<% } %> ></option>
 				<option value="n" <% if (business.BPhone1Fax == 'n') { %>selected<% } %> >Phone</option>
@@ -39,12 +39,12 @@
 				<div class="span5">
 			<label>Email</label>
 			<input type="email" Class="inputEdit" name="BEmail" 
-					<%= business.BEmail ? "value=" + business.BEmail  : "class='empty'" %>>
+					<%= business.BEmail ? "value=" + '"' + business.BEmail + '"' : "class='empty'" %>>
 				</div>
 				<div class="span5">
 			<label>Phone2</label>
 			<input type="text" Class="inputEdit width75" name="BPhone2" 
-					<%= business.BPhone2 ? "value=" + business.BPhone2  : "class='empty'" %>>
+					<%= business.BPhone2 ? "value=" + '"' + business.BPhone2 + '"' : "class='empty'" %>>
 					<select name = "BPhone2Fax" class="width100 margin-left10"> 
 					<option value="" <% if (business.BPhone2Fax == '') { %>selected<% } %> ></option>
 				<option value="n" <% if (business.BPhone2Fax == 'n') { %>selected<% } %> >Phone</option>

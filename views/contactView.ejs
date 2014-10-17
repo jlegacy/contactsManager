@@ -7,20 +7,17 @@
 		
 			<div class="span5">
 			<label>Last Name</label>
-			<input type="text" Required  name="CLastName" class="inputEdit" placeholder="Last Name" 
-			<%= "value=" + contact.CLastName%>>
+			<input type="text" Required  name="CLastName" class="inputEdit" placeholder="Last Name" value="<%= contact.CLastName%>">
 			</div>
 		
 			<div class="span5">
 			<label>First Name</label>
-			<input type="text" Required  class="inputEdit" name="CFirstName" 
-			<%="value=" + contact.CFirstName%>>
+			<input type="text" Required  class="inputEdit" name="CFirstName" value="<%= contact.CFirstName%>">
 			</div>
 				
 			<div class="span5">
 			<label>Position</label>
-			<input type="text" Required class="inputEdit" name="CPosition" 
-			<%="value=" + contact.CPosition%>>
+			<input type="text" Required class="inputEdit" name="CPosition" value="<%= contact.CPosition%>">
 			</div>
 				
 			
@@ -38,9 +35,9 @@
 			</div>
 					
 			<div class="span5">	
-			<div><label>Email</label></div>
-			<div><input type="email" class="inputEdit" name="CEmail" 
-				<%="value=" + contact.CEmail%>></div>
+			<label>Email</label>
+			<input type="email" class="inputEdit" name="CEmail" 
+				value="<%= contact.CEmail%>">
 			</div>
 			
 			<div class="span5">
@@ -56,10 +53,10 @@
 				
 		    <div class="hidden">		
 			<input class="hidden" type="text" name="CConId" 
-			<%="value=" + contact.CConId%>>
+			value="<%= contact.CConId%>">
 			
 			<input class="hidden" class="inputEdit" type="text" name="CBusId"
-				<%="value=" + contact.CBusId%>>
+				value="<%= contact.CBusId%>">
 			
 		</div>
 	</div>
