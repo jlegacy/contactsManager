@@ -1,44 +1,110 @@
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Contacts Manager >> Part 3</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/contacts.css">
-	</head>
-	<body>
-		<div class="container">
-		<div class="row">
-		<div class="span3">
-					<div class="well">
-						<a class="btn btn-large btn-primary" href="javascript://" id="new-business"><i class="icon-plus icon-white"></i>New Business</a>
-						<nav id="business"></nav>
-					</div>
-				</div>
-				<div class="row">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Contacts Manager >> Part 3</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/contacts2.css">
+    <link rel="stylesheet" href="css/jquery.scrollbar.css" />
+    <link rel="stylesheet" href="css/jquery.growl.css" />
+	 <link rel="stylesheet" href="css/zebraDates.css" />
+    <link href="http://code.jquery.com/ui/1.10.4/themes/cupertino/jquery-ui.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="storedData"> </div>
+
+    <div id="container">
+        <div id="header">
+			<div class="contactsLogo"></div>
+        </div>
+        <div id="navigation">
+            <ul>
+                <li>
+
+                    <div class="search-section">Search Business
+                        <input id="search_box" class="search_box"></input>
+						<div id="search-business"class="iconSearch"><div>
+                   </div>
+                </li>
+            </ul>
+        </div>
+		 <div id="BusinessDeleteConfirm" title="Confirm Business Delete" style="display:none;">Are You Sure?</div>
+       <div id="ContactDeleteConfirm" title="Confirm Contact Delete" style="display:none;">Are You Sure?</div>
+	   <div id="UserDeleteConfirm" title="Confirm User Delete" style="display:none;">Are You Sure?</div>
+        <div id="content-container1">
+            <div id="content-container2">
+                <div id="section-navigation">
+                    <div class="well">
+                        <a class="btn btn-large btn-primary" href="javascript://" id="new-business"><i class="icon-plus icon-white"></i>New Business</a>
+						 <h3>
+					Business Information
+					</h3>
+                        <nav></nav>
+                    </div>
+                    <div id="createBusiness"> </div>
+					
+
+                        <div class="well">
+
+
+                            <nav id="filter"></nav>
+
+                        </div>
+                </div>
 				
-			<div class="row">
-				<header class="span12">
-					<h1>Contacts Manager</h1>
-				</header>
-			</div>
-			<div class="row">
 				
-				<div class="span3">
+                <div id="content">
 					<div class="well">
-						<a class="btn btn-large btn-primary" href="javascript://" id="new-contact"><i class="icon-plus icon-white"></i>New Contact</a>
-						<nav id="filter"></nav>
+                    <a class="btn btn-large btn-primary" href="javascript://" id="new-contact"><i class="icon-plus icon-white"></i>New Contact</a>
+					 <h3>
+					Contact Information
+					</h3>
 					</div>
+					
+						<div id="showAllContacts" class="shrinkLogo"></div>
+                        <div id="create"></div>
+                        <div class="contactSize" id="contacts"></div>
 				</div>
-				<div class="span9">
-					<div id="create"></div>
-					<div id="contacts"></div>
+               
+                <div id="aside">
+				<div class="well">
+                    <a class="btn btn-large btn-primary" href="javascript://" id="new-user"><i class="icon-plus icon-white"></i>New User Field</a>
+                    <h3>
+					User Defined Information
+				</h3>
 				</div>
-			</div>
-		</div>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-		<script src="js/can.jquery.js"></script>
-		<script src="js/can.fixture.js"></script>
-		<script src="js/contacts.js"></script>		
-	</body>
+                  
+                    <div id="createUser"></div>
+
+                    <div id="users"></div>
+                </div>
+                <div id="footer">
+                    CyberSharks © www.cybersharks.net, 2014
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 
+
+ -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="js/can.jquery.js"></script>
+    <script src="js/can.fixture.js"></script>
+    <script src="js/contacts.js"></script>
+    <script src="js/jquery.scrollbar.min.js"></script>
+    <script src="js/guid.js"></script>
+    <script src="js/model.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/jquery.growl.js"></script>
+    <script src="js/parsley.js"></script>
+    <script src="js/jquery.maskedinput.js"></script>
+	 <script src="js/zebraDates.js"></script>
+
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</body>
+
 </html>

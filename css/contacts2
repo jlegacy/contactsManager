@@ -61,6 +61,7 @@
 	float: left;
 	width: 100%;
 	background: #fff url(/wp-content/uploads/layout-three-liquid-background1.gif) repeat-y 20% 0;
+	min-height:800;
 }
 
 #content-container2
@@ -78,6 +79,7 @@
 	padding: 19px 0;
 	margin: 0 1%;
 	display: inline;
+	min-height:800px;
 }
 
 #section-navigation ul
@@ -788,6 +790,7 @@ h1 {
 /* 3 columns div layout */
 #left-sidebar {
     width: 300px;
+    height: 800px;
     background-color: rgb(227, 227, 255);
     margin: 2px 2px 2px 0px;
     float: left;

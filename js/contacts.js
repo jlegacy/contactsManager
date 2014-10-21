@@ -65,12 +65,14 @@
 
 	function LoadBusiness(data) {
 
+		can.view.cache = false;
 		$('#filter').html(can.view('views/filterView.ejs', {
 				categories : data
 			}));
 	}
 
 	function LoadContacts(data) {
+		can.view.cache = false;
 		GetContactServer({
 			Business : data
 		}, function (data) {
@@ -190,6 +192,7 @@
 	}
 
 	function LoadUserDefined(data) {
+		can.view.cache = false;
 		GetUserServer(data, function (data) {
 
 			$('#users').html("");
@@ -292,14 +295,14 @@
 
 			});
 
-			$('input[name="UField"]').datepicker({
-				showOn : 'button',
-				buttonText : 'Show Date',
-				buttonImageOnly : true,
-				dateFormat : 'mm/dd/yy - D',
-				constrainInput : true,
+		//	var datepicker = $('input[name="UField"]').data('Zebra_DatePicker');
+		//	datepicker.destroy();
+
+			$('input[name="UField"]').Zebra_DatePicker({
+				readonly_element : false,
 			});
 
+			$('#users').off();
 			$('#users').on("click", "li", function () {
 				var data = {};
 
@@ -312,6 +315,7 @@
 	}
 
 	function ShowAddContact() {
+		can.view.cache = false;
 
 		var data = {};
 
@@ -372,6 +376,7 @@
 	}
 
 	function ShowAddBusiness() {
+		can.view.cache = false;
 
 		var data = {};
 
@@ -393,6 +398,7 @@
 	}
 
 	function ShowAddUser() {
+		can.view.cache = false;
 
 		var data = {};
 
@@ -418,6 +424,13 @@
 		$('#createUser').hide();
 		$('#createUser').append(x);
 		$('#createUser').slideDown();
+
+	//	var datepicker = $('input[name="UField"]').data('Zebra_DatePicker');
+	//	datepicker.destroy();
+
+		$('input[name="UField"]').Zebra_DatePicker({
+			readonly_element : false,
+		});
 
 		$('#userButtonBar').hide();
 	}
@@ -529,6 +542,7 @@
 
 	function GetContactServer(data, callback) {
 		$.ajax({
+			cache : false,
 			type : "GET",
 			url : "/ContactsManager/Service1.svc/GetContacts",
 			data : data,
@@ -585,6 +599,7 @@
 	function GetUserServer(data, callback) {
 		$.ajax({
 			type : "GET",
+			cache : false,
 			url : "../ContactsManager/Service1.svc/GetUserDefined",
 			data : data,
 			contentType : "application/json; charset=utf-8",
@@ -596,6 +611,11 @@
 	}
 
 	function LoadAllBusiness(data) {
+
+		$('#contacts').html('');
+		$('#users').html('');
+		$('#create').slideUp(200);
+		$('#createUser').slideUp(200);
 
 		findAllBusiness(data, function (response) {
 
@@ -938,6 +958,8 @@
 			$.data($("#storedData")[0], "contact", '');
 
 		});
+
+		can.view.cache = false;
 
 	});
 
