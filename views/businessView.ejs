@@ -26,31 +26,24 @@
 			<input type="text" Required Class="inputEdit" name="BAddress" 
 					<%= business.BAddress ? "value=" + '"' + business.BAddress + '"' : "class='empty'" %>>
 				</div>
-				<div class="span5">
+				<div class="span5"> 
 			<label>Phone</label>
-			<input type="text" Number Required Class="inputEdit width75" name="BPhone1" 
+			<input type="text" Number Required Class="inputEdit width100" name="BPhone1" 
 					<%= business.BPhone1 ? "value=" + '"' + business.BPhone1 + '"' : "class='empty'" %>>
-				<select name = "BPhone1Fax" class="width100 margin-left10"> 
-				<option value="" <% if (business.BPhone1Fax == '') { %>selected<% } %> ></option>
-				<option value="n" <% if (business.BPhone1Fax == 'n') { %>selected<% } %> >Phone</option>
-				<option value="y" <% if (business.BPhone1Fax == 'y') { %>selected<% } %> >Fax</option>
-					</select>
+			
 				</div>
-				<div class="span5">
-			<label>Email</label>
-			<input type="email" Class="inputEdit" name="BEmail" 
-					<%= business.BEmail ? "value=" + '"' + business.BEmail + '"' : "class='empty'" %>>
-				</div>
+				
 				<div class="span5">
 			<label>Phone2</label>
-			<input type="text" Class="inputEdit width75" name="BPhone2" 
+			<input type="text" Class="inputEdit width100" name="BPhone2" 
 					<%= business.BPhone2 ? "value=" + '"' + business.BPhone2 + '"' : "class='empty'" %>>
-					<select name = "BPhone2Fax" class="width100 margin-left10"> 
-					<option value="" <% if (business.BPhone2Fax == '') { %>selected<% } %> ></option>
-				<option value="n" <% if (business.BPhone2Fax == 'n') { %>selected<% } %> >Phone</option>
-				<option value="y" <% if (business.BPhone2Fax == 'y') { %>selected<% } %> >Fax</option>
-					</select>
 				</div>
+				<div class="span5">
+			<label>Fax</label>
+			<input type="text" Class="inputEdit width100" name="BFax1" 
+					<%= business.BFax1 ? "value=" + '"' + business.BFax1 + '"' : "class='empty'" %>>
+				</div>
+				
 				
 			<input class="hidden" Class="inputEdit" type="text" name="BBusId"
 				<%="value=" + business.BBusId%>>

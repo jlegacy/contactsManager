@@ -1,7 +1,7 @@
 <ul class="clearfix" nav-list>
 <% for (var j = 0; j < user.length; j++){%> 
 <li class="user">
-		<%== can.view.render('views/userView.ejs', {user: user[j]}) %>
+		<%== can.view.render('views/userView.ejs', {user: user[j], userFields: userFields}) %>
 		</li>
 	<% } %>
 </ul>

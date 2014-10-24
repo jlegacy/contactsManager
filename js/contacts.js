@@ -1,5 +1,7 @@
 (function () {
 
+	var userDefinedFields;
+
 	var availableStates = [
 		"AL",
 		"AK",
@@ -71,6 +73,12 @@
 			}));
 	}
 
+	function ClearAll() {
+		$("#filter li").removeClass('active');
+		$('#contacts').html("");
+		$('#users').html("");
+	}
+
 	function LoadContacts(data) {
 		can.view.cache = false;
 		GetContactServer({
@@ -88,7 +96,6 @@
 			SetUpContactsEditMask();
 
 			$('#contacts').off();
-
 			$(".updateContactButton").button({
 				icons : {
 					primary : "ui-icon-gear",
@@ -188,16 +195,20 @@
 					scrollTop : 0
 				}, "slow");
 			});
+			
+			$('.contact').first().trigger('click');
 		});
+
 	}
 
 	function LoadUserDefined(data) {
 		can.view.cache = false;
 		GetUserServer(data, function (data) {
-
+			console.log(data);
 			$('#users').html("");
 			$('#users').html(can.view('views/userList.ejs', {
-					user : data
+					user : data,
+					userFields : userDefinedFields
 				}));
 
 			$('#users').off();
@@ -295,11 +306,9 @@
 
 			});
 
-		//	var datepicker = $('input[name="UField"]').data('Zebra_DatePicker');
-		//	datepicker.destroy();
-
 			$('input[name="UField"]').Zebra_DatePicker({
 				readonly_element : false,
+				format : 'm-d-Y'
 			});
 
 			$('#users').off();
@@ -360,6 +369,9 @@
 		var dateBoxes = $("input[name='BPhone2']");
 		dateBoxes.mask("(999) 999-9999");
 
+		var dateBoxes = $("input[name='BFax1']");
+		dateBoxes.mask("(999) 999-9999");
+
 		var stateAutoComplete = $("input[name='BState']");
 		stateAutoComplete.autocomplete({
 			source : availableStates
@@ -385,6 +397,8 @@
 		var x = (can.view('views/createBusiness.ejs', {
 				business : data
 			}));
+
+		ClearAll();
 
 		$('#createBusiness').empty();
 		$('#createBusiness').hide();
@@ -417,7 +431,8 @@
 		}
 
 		var x = (can.view('views/createUser.ejs', {
-				user : data
+				user : data,
+				userFields : userDefinedFields
 			}));
 
 		$('#createUser').empty();
@@ -425,8 +440,8 @@
 		$('#createUser').append(x);
 		$('#createUser').slideDown();
 
-	//	var datepicker = $('input[name="UField"]').data('Zebra_DatePicker');
-	//	datepicker.destroy();
+		//	var datepicker = $('input[name="UField"]').data('Zebra_DatePicker');
+		//	datepicker.destroy();
 
 		$('input[name="UField"]').Zebra_DatePicker({
 			readonly_element : false,
@@ -435,8 +450,34 @@
 		$('#userButtonBar').hide();
 	}
 
+	function ShowAddCategory() {
+		can.view.cache = false;
+
+		var data = {};
+
+		var x = (can.view('views/createUserDefinedCategory.ejs', {
+				userDefined : {}
+			}));
+
+		$('#createUserDefinedCategory').empty();
+		$('#createUserDefinedCategory').hide();
+		$('#createUserDefinedCategory').append(x);
+		$('#createUserDefinedCategory').slideDown();
+
+		$('#userDefinedCategoryButtonBar').hide();
+
+	}
+
 	function HideAddBusiness() {
 		$('#createBusiness').slideUp(200);
+	}
+
+	function HideAddUserDefinedCategories() {
+		$('#createUserDefinedCategory').slideUp(200);
+	}
+
+	function HideAddCategory() {
+		$('#createUserDefinedCategory').slideUp(200);
 	}
 
 	function HideAddUser() {
@@ -526,6 +567,48 @@
 
 	}
 
+	function CreateUserDefinedCategoryServer(data, callback) {
+		$.ajax({
+			type : "POST",
+			url : "/ContactsManager/Service1.svc/AddUserDefinedCategory",
+			data : data,
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+		})
+		.done(function (result) {
+			callback(result);
+		});
+
+	}
+
+	function UpdateUserDefinedCategoryServer(data, callback) {
+		$.ajax({
+			type : "POST",
+			url : "/ContactsManager/Service1.svc/UpdateUserDefinedCategory",
+			data : data,
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+		})
+		.done(function (result) {
+			callback(result);
+		});
+
+	}
+
+	function DeleteUserDefinedCategoryServer(data, callback) {
+		$.ajax({
+			type : "GET",
+			url : "/ContactsManager/Service1.svc/DeleteUserDefinedCategory",
+			data : data,
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+		})
+		.done(function (result) {
+			callback(result);
+		});
+
+	}
+
 	function CreateBusinessServer(data, callback) {
 		$.ajax({
 			type : "POST",
@@ -601,6 +684,20 @@
 			type : "GET",
 			cache : false,
 			url : "../ContactsManager/Service1.svc/GetUserDefined",
+			data : data,
+			contentType : "application/json; charset=utf-8",
+			dataType : 'json',
+		})
+		.done(function (result) {
+			callback(result);
+		});
+	}
+
+	function GetUserDefinedCategoriesServer(data, callback) {
+		$.ajax({
+			type : "GET",
+			cache : false,
+			url : "../ContactsManager/Service1.svc/UserDefinedCategories",
 			data : data,
 			contentType : "application/json; charset=utf-8",
 			dataType : 'json',
@@ -705,6 +802,8 @@
 				$.data($("#storedData")[0], "contact", '');
 
 				$('#users').html("");
+			
+
 			});
 
 		});
@@ -724,6 +823,8 @@
 			data = can.deparam(form.serialize());
 			data.BPhone1 = data.BPhone1.replace(/\D/g, '');
 			data.BPhone2 = data.BPhone2.replace(/\D/g, '');
+			data.BFax1 = data.BFax1.replace(/\D/g, '');
+			data.BEmail = "";
 
 			UpdateBusinessServer(data, function (values, response) {
 				if (response) {
@@ -744,6 +845,66 @@
 				};
 
 				LoadAllBusiness(data);
+			});
+		}
+	}
+
+	function UpdateUserDefinedCategory(element) {
+		var form = element.closest('form');
+
+		var x = new Parsley(form);
+		var valid = x.validate();
+		var data = {};
+
+		if (valid) {
+			data = can.deparam(form.serialize());
+			data.XUserDefId = element.attr('id');
+
+			UpdateUserDefinedCategoryServer(data, function (response) {
+				if (response) {
+					$.growl({
+						title : "RoloMax",
+						message : "User Defined Category Updated..",
+						style : "notice"
+					});
+
+				} else {
+					$.growl({
+						title : "RoloMax",
+						message : "Error User Defined Category..",
+						style : "warning"
+					});
+				}
+			});
+		}
+	}
+
+	function DeleteUserDefinedCategory(element) {
+		var form = element.closest('form');
+
+		var x = new Parsley(form);
+		var valid = x.validate();
+		var data = {};
+
+		if (valid) {
+			data = {};
+			data.Category = element.attr('id');
+
+			DeleteUserDefinedCategoryServer(data, function (response) {
+				if (response) {
+					$.growl({
+						title : "RoloMax",
+						message : "User Defined Category Deleted..",
+						style : "notice"
+					});
+					PopulateUserDefinedCategoriesDialog();
+				} else {
+					$.growl({
+						title : "RoloMax",
+						message : "Error Deleting User Defined Category..",
+						style : "warning"
+					});
+				}
 			});
 		}
 	}
@@ -802,6 +963,61 @@
 		});
 	}
 
+	function PopulateUserDefinedCategoriesDialog() {
+
+		var data = {};
+		GetUserDefinedCategoriesServer(data, function (data) {
+
+			userDefinedFields = data;
+			$('#UserDefinedCategories').html("");
+			$('#UserDefinedCategories').html(can.view('views/userDefinedCategoryList.ejs', {
+					userDefined : data
+				}));
+
+			$(".updateUserDefinedCategoryButton").button({
+				icons : {
+					primary : "ui-icon-gear",
+					secondary : "ui-icon-triangle-1-s"
+				}
+			});
+
+			$(".deleteUserDefinedCategoryButton").button({
+				icons : {
+					primary : "ui-icon-gear",
+					secondary : "ui-icon-triangle-1-s"
+				}
+			});
+
+			$(".updateUserDefinedCategoryButton").click(function (event) {
+				event.preventDefault();
+
+				var form = $(this).closest('form');
+				var x = new Parsley(form);
+				var valid = x.validate();
+
+				if (valid) {
+					UpdateUserDefinedCategory($(this));
+				}
+
+			});
+
+			$(".deleteUserDefinedCategoryButton").click(function (event) {
+				event.preventDefault();
+
+				var form = $(this).closest('form');
+				var x = new Parsley(form);
+				var valid = x.validate();
+
+				if (valid) {
+					DeleteUserDefinedCategory($(this));
+				}
+
+			});
+
+		});
+
+	}
+
 	$(document).ready(function () {
 
 		var storeData = $('#storedData')[0];
@@ -857,6 +1073,35 @@
 			}
 		});
 
+		$("body").on("click", "#userDefinedCategorySave", function () {
+			var form = $('#createUserDefinedCategory').find('form');
+
+			var data = can.deparam(form.serialize());
+
+			var x = new Parsley(form);
+			var valid = x.validate();
+
+			if (valid) {
+				CreateUserDefinedCategoryServer(data, function (response) {
+					$('#createUserDefinedCategory').slideUp();
+					if (response) {
+						$.growl({
+							title : "RoloMax",
+							message : "Category Created..",
+							style : "notice"
+						});
+						PopulateUserDefinedCategoriesDialog(); 
+					} else {
+						$.growl({
+							title : "RoloMax",
+							message : "Error Creating Category..",
+							style : "warning"
+						});
+					}
+				});
+			}
+		});
+
 		$("body").on("click", "#userSave", function () {
 			var form = $('#createUser').find('form');
 			var data = {};
@@ -892,6 +1137,8 @@
 
 			data.BPhone1 = data.BPhone1.replace(/\D/g, '');
 			data.BPhone2 = data.BPhone2.replace(/\D/g, '');
+			data.BFax1 = data.BFax1.replace(/\D/g, '');
+			data.BEmail = "";
 
 			var x = new Parsley(form);
 			var valid = x.validate();
@@ -932,6 +1179,10 @@
 			HideAddUser();
 		});
 
+		$("body").on("click", "#userDefinedCategoryCancel", function () {
+			HideAddUserDefinedCategories();
+		});
+
 		$("body").on("click", "#new-contact", function () {
 
 			ShowAddContact();
@@ -943,6 +1194,10 @@
 
 		$("body").on("click", "#new-user", function () {
 			ShowAddUser();
+		});
+
+		$("body").on("click", "#new-category", function () {
+			ShowAddCategory();
 		});
 
 		$("#search-business").click(function () {
@@ -960,6 +1215,35 @@
 		});
 
 		can.view.cache = false;
+
+		var data = {};
+
+		GetUserDefinedCategoriesServer(data, function (data) {
+			userDefinedFields = data;
+		});
+
+		$("#new-UserDefinedCategory").click(function () {
+			var element = $(this);
+			event.preventDefault();
+			
+				$("#UpdateUserCategories").dialog({
+				modal : true,
+				draggable : false,
+				resizable : false,
+				position : ['center', 'center'],
+				show : 'blind',
+				hide : 'blind',
+				width : 575,
+				dialogClass : 'ui-dialog-osx',
+				buttons : {
+					"Cancel" : function () {
+						$(this).dialog("close");
+					}
+				}
+			});
+
+			PopulateUserDefinedCategoriesDialog()
+		});
 
 	});
 

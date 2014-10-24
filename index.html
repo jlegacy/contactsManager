@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/jquery.scrollbar.css" />
     <link rel="stylesheet" href="css/jquery.growl.css" />
 	 <link rel="stylesheet" href="css/zebraDates.css" />
+	 <link rel="stylesheet" href="css/jquery.handsontable.full.min.css" />
     <link href="http://code.jquery.com/ui/1.10.4/themes/cupertino/jquery-ui.css" rel="stylesheet">
 
 </head>
@@ -24,17 +25,23 @@
         <div id="navigation">
             <ul>
                 <li>
-
-                    <div class="search-section">Search Business
-                        <input id="search_box" class="search_box"></input>
-						<div id="search-business"class="iconSearch"><div>
-                   </div>
+                    <div class="search-section">Search Business</div>
+                    <div class="search_box"><input id="search_box"></input></div>
+					<div id="search-business"class="iconSearch"><div>
                 </li>
             </ul>
         </div>
 		 <div id="BusinessDeleteConfirm" title="Confirm Business Delete" style="display:none;">Are You Sure?</div>
        <div id="ContactDeleteConfirm" title="Confirm Contact Delete" style="display:none;">Are You Sure?</div>
 	   <div id="UserDeleteConfirm" title="Confirm User Delete" style="display:none;">Are You Sure?</div>
+	   <div id="UpdateUserCategories" title="Update User Categories" class="scrollbar-inner" style="display:none;">
+			<div class="span1">
+			<a class="btn btn-large btn-primary" href="javascript://" id="new-category"><i class="icon-plus icon-white"></i>New Category</a>
+                    <h3>
+				</div>
+			<div id="createUserDefinedCategory"></div>
+		<div id="UserDefinedCategories"></div>
+		</div>
         <div id="content-container1">
             <div id="content-container2">
                 <div id="section-navigation">
@@ -67,15 +74,17 @@
 					
 						<div id="showAllContacts" class="shrinkLogo"></div>
                         <div id="create"></div>
-                        <div class="contactSize" id="contacts"></div>
+                        <div id="contacts"></div>
 				</div>
                
                 <div id="aside">
 				<div class="well">
                     <a class="btn btn-large btn-primary" href="javascript://" id="new-user"><i class="icon-plus icon-white"></i>New User Field</a>
+					 <a class="btn btn-large btn-secondary" id="new-UserDefinedCategory"><i class="icon-plus icon-white"></i>Maintain Categories</a>
                     <h3>
 					User Defined Information
 				</h3>
+				<div id="UpdateCategories"></div>
 				</div>
                   
                     <div id="createUser"></div>
@@ -102,8 +111,9 @@
     <script src="js/jquery.growl.js"></script>
     <script src="js/parsley.js"></script>
     <script src="js/jquery.maskedinput.js"></script>
-	 <script src="js/zebraDates.js"></script>
-
+	<script src="js/zebraDates.js"></script>
+	<script src="js/jquery.handsontable.full.js"></script>
+	
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 

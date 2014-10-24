@@ -1,0 +1,29 @@
+<form>
+        <div class="row">
+            <div class="span1">
+                <label>Category</label>
+				<label>Sort</label>
+            </div>
+
+            <div class="span3">
+			
+			 
+			<input type="text" Required  name="XUserDefText" Class="inputEdit"
+					<%= userDefined.XUserDefText ? "value=" + '"' + userDefined.XUserDefText + '"' : "class='empty'" %>>
+       
+			 
+			<input type="text" Required Class="inputEdit float-left width50" name="XUserSort"
+			
+			<%= userDefined.XUserSort ? "value=" + '"' + userDefined.XUserSort + '"' : "class='empty'" %>>
+				
+			
+            </div>
+
+            <div id="userDefinedCategoryButtonBar" class="span1">
+             <button id=<%=userDefined.XUserDefId%> class="updateUserDefinedCategoryButton">Update</button>
+				<button id=<%=userDefined.XUserDefId%> class="deleteUserDefinedCategoryButton">Delete</button>
+            </div>
+			
+           
+        </div>
+    </form>

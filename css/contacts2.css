@@ -26,11 +26,12 @@
 	padding: 0;
 }
 .search-section
-{
-	padding: 8px;
+{   
+	float:left;
+	margin-left:10px;
+	padding-top:10px;
 	color: lightblue;
 	font-size: 2em;
-	display: inline-block;
 	
 }
 
@@ -41,7 +42,9 @@
 }
 
 .search_box{
-	margin-left: 10px;
+	margin-left:5px;
+	margin-top: 7px;
+	float:left;
 }
 
 #navigation li a
@@ -138,6 +141,7 @@ h1 {
 
 }
 
+
 #create .contact {
 	z-index: 1;
 	position: relative;
@@ -165,12 +169,9 @@ h1 {
 }
 
 
-
-
 .phoneDrop{
-	position:absolute;
-	margin-top: -37px;
-	margin-left: 153px;
+	float-left;
+	
 }
 
 
@@ -182,6 +183,7 @@ h1 {
 #users{
 	float: left;
 }
+
 
 
 .contact {
@@ -221,7 +223,7 @@ h1 {
 	float: left;
 	padding-top: 5px;
 	text-align: right;
-	width: 60px;
+	width: 68px;
 }
 
 
@@ -234,11 +236,24 @@ h1 {
 	visibility: hidden;
 }
 
+#UserDefinedCategories .userDefinedCategory
+{
+	border: 1px solid #ccc;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin-bottom: 5px;
+	padding: 10px;
+	position: relative;
+	padding-top: 10px !important;
+}
+
 #contacts .active{
 	background: lightblue;
 }
 
 .contact input {
+	float:left;
 	border: 1px solid #fff;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
@@ -334,13 +349,24 @@ margin-bottom:10px;
 margin-left:5px !important;
 }
 
+
+
+
 #userButtonBar{
+	position:absolute;
+	margin-top: 0px;
+	margin-left: 400px;
+}
+
+#userDefinedCategoryButtonBar{
 	position:absolute;
 	margin-top: -5px;
 	margin-left: 400px;
 }
 
-#userButtonBar button{
+
+
+#userDefinedCategoryButtonBar button{
 	margin:5px;
 	width:100px;
 }
@@ -349,6 +375,7 @@ margin-left:5px !important;
 	position: absolute; 
 	margin-top: 257px;
 	height:30px;
+	margin-left: 14px;
 }
 
 #businessButtonBar{
@@ -548,19 +575,23 @@ text-align: center;
 
 
 .iconSearch{
-	position:relavtive;
-	margin-top: -33px;
-	margin-left: 408px;
+	float:left;
+	margin-top:10px;
+	margin-left:5px;
  height: 24px; 
  width: 24px;
     cursor: pointer;
  	 background-image: url("../img/001_38.png");
+
 }
 
 .margin-left10{
 margin-left: 10px;
 }
 
+.width50{
+width: 50px !important;
+}
 
 .width75{
 width: 75px;
@@ -637,9 +668,30 @@ width: 400px;
 width:100%;
 }
 
+#UserDefinedCategories li{
+	list-style-type: none;
+}
+
+#UserDefinedCategories .user{
+	background: lightblue;
+}
+
 #createUser .span1
 {
 	margin-top: 5px;
+}
+
+#createUserDefinedCategory .hero-unit
+{
+	margin-left:25px;
+	margin-top:10px;
+
+}
+
+#createUserDefinedCategory .buttons
+{
+	position:relative;
+	margin-top:-35px;
 }
 
 .user {
@@ -670,7 +722,7 @@ width:100%;
 	float: left;
 	padding-top: 5px;
 	text-align: right;
-	width: 60px;
+	width: 68px;
 }
 
 .user form input {
@@ -680,6 +732,10 @@ width:100%;
 
 .user label {
 	font-weight: bold;
+}
+
+#UserDefinedCategories{
+	float: left;
 }
 
 .user{
@@ -739,6 +795,8 @@ color: red;
 .parsley-type{
 color: red;
 }
+
+
 
 body {
     margin: 0px;

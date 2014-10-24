@@ -6,10 +6,12 @@
             </div>
 
             <div class="span3">
-                <input class="inputEdit" name="UItem" required type="text"
-				<%= user.UItem ? "value=" + '"' + user.UItem + '"' : "class='empty'" %>>
+			
+            <%== can.view.render('views/userFieldDrop.ejs', {user: user, userFields: userFields}) %> 
+				
                 <input class="inputEdit" name="UField" required type="text"
 				<%= user.UField ? "value=" + '"' + user.UField + '"' : "class='empty'" %>>
+				
             </div>
 
             <div id="userButtonBar" class="span1">
@@ -26,6 +28,8 @@
 				<%= user.UConId ?  "value=" + '"' + user.UConId + '"' : "class='empty'" %>>
 				 <input class="inputEdit" name="UType" type="text"
 				<%= user.UType ? "value=" + '"' + user.UType + '"' : "class='empty'" %>>
+				 <input class="inputEdit" name="UItem" type="text"
+				<%= user.UItem ? "value=" + '"' + user.UItem + '"' : "class='empty'" %>>
             </div>
         </div>
     </form>

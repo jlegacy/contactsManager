@@ -1,0 +1,5 @@
+<select name = "UUserDefId" class="width100 margin-left10"> 		
+	<% for (var j = 0; j < userFields.length; j++){%> 
+		<option value="<%= userFields[j].XUserDefId%>" <% if (user.UUserDefId == userFields[j].XUserDefId) { %>selected<% } %> ><%= userFields[j].XUserDefText%></option>
+	<% } %>
+</select>

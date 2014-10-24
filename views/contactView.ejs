@@ -24,7 +24,7 @@
 			<div class="span4">			
 			<label>Phone</label>
 			
-			<input type="text" Class="inputEdit width75" name="CPhone1" 
+			<input type="text" Class="inputEdit width100" name="CPhone1" 
 				<%= contact.CPhone1 ? "value=" + contact.CPhone1  : "class='empty'" %>>
 			<div class="phoneDrop"><select name = "CPhone1Fax" class="width100 margin-left10"> 
 					<option value="" <% if (contact.CPhone1Fax == '') { %>selected<% } %> ></option>
@@ -42,7 +42,7 @@
 			
 			<div class="span4">
 			<label>Phone2</label>
-			<input type="text" Class="inputEdit width75" name="CPhone2" 
+			<input type="text" Class="inputEdit width100" name="CPhone2" 
 				<%= contact.CPhone2 ? "value=" + contact.CPhone2  : "class='empty'" %>>
 				<div class="phoneDrop"><select name = "CPhone2Fax" class="width100 margin-left10"> 
 					<option value="" <% if (contact.CPhone2Fax == '') { %>selected<% } %> ></option>
