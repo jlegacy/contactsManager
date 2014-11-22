@@ -17,7 +17,7 @@
 				
 			<div class="span4">
 			<label>Position</label>
-			<input type="text" Required class="inputEdit" name="CPosition" value="<%= contact.CPosition%>">
+			<input type="text" class="inputEdit" name="CPosition" value="<%= contact.CPosition%>">
 			</div>
 				
 			
@@ -26,13 +26,16 @@
 			
 			<input type="text" Class="inputEdit width100" name="CPhone1" 
 				<%= contact.CPhone1 ? "value=" + contact.CPhone1  : "class='empty'" %>>
-			<div class="phoneDrop"><select name = "CPhone1Fax" class="width100 margin-left10"> 
+				
+			<select name = "CPhone1Fax" class="width75 float-left margin-left10"> 
 					<option value="" <% if (contact.CPhone1Fax == '') { %>selected<% } %> ></option>
 					<option value="n" <% if (contact.CPhone1Fax == 'n') { %>selected<% } %> >Phone</option>
 					<option value="y" <% if (contact.CPhone1Fax == 'y') { %>selected<% } %> >Fax</option>
-				</select></div>
-		
+				</select>
+				<Label class="width25">Ext</label>
+			<input name="CPhone1Ext" class="float-left width50 phoneExt" value="<%= contact.CPhone1Ext%>">
 			</div>
+			
 					
 			<div class="span4">	
 			<label>Email</label>
@@ -44,12 +47,19 @@
 			<label>Phone2</label>
 			<input type="text" Class="inputEdit width100" name="CPhone2" 
 				<%= contact.CPhone2 ? "value=" + contact.CPhone2  : "class='empty'" %>>
-				<div class="phoneDrop"><select name = "CPhone2Fax" class="width100 margin-left10"> 
+				
+				
+			
+				<select name = "CPhone2Fax" class="width75 float-left margin-left10"> 
 					<option value="" <% if (contact.CPhone2Fax == '') { %>selected<% } %> ></option>
 					<option value="n" <% if (contact.CPhone2Fax == 'n') { %>selected<% } %> >Phone</option>
 					<option value="y" <% if (contact.CPhone2Fax == 'y') { %>selected<% } %> >Fax</option>
-				</select></div>
-			</div>
+				</select>
+				
+				<Label class="width25">Ext</label>
+			<input name="CPhone2Ext" class="float-left width50 phoneExt" value="<%= contact.CPhone2Ext%>">
+				
+			
 				
 		    <div class="hidden">		
 			<input class="hidden" type="text" name="CConId" 

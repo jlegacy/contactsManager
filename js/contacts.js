@@ -195,7 +195,7 @@
 					scrollTop : 0
 				}, "slow");
 			});
-			
+
 			$('.contact').first().trigger('click');
 		});
 
@@ -306,10 +306,10 @@
 
 			});
 
-			$('input[name="UField"]').Zebra_DatePicker({
-				readonly_element : false,
-				format : 'm-d-Y'
-			});
+		//	$('input[name="UField"]').Zebra_DatePicker({
+		//		readonly_element : false,
+		//		format : 'm-d-Y'
+		//	});
 
 			$('#users').off();
 			$('#users').on("click", "li", function () {
@@ -443,9 +443,9 @@
 		//	var datepicker = $('input[name="UField"]').data('Zebra_DatePicker');
 		//	datepicker.destroy();
 
-		$('input[name="UField"]').Zebra_DatePicker({
-			readonly_element : false,
-		});
+		//$('input[name="UField"]').Zebra_DatePicker({
+	//		readonly_element : false,
+		//});
 
 		$('#userButtonBar').hide();
 	}
@@ -802,7 +802,6 @@
 				$.data($("#storedData")[0], "contact", '');
 
 				$('#users').html("");
-			
 
 			});
 
@@ -1090,7 +1089,7 @@
 							message : "Category Created..",
 							style : "notice"
 						});
-						PopulateUserDefinedCategoriesDialog(); 
+						PopulateUserDefinedCategoriesDialog();
 					} else {
 						$.growl({
 							title : "RoloMax",
@@ -1225,8 +1224,8 @@
 		$("#new-UserDefinedCategory").click(function () {
 			var element = $(this);
 			event.preventDefault();
-			
-				$("#UpdateUserCategories").dialog({
+
+			$("#UpdateUserCategories").dialog({
 				modal : true,
 				draggable : false,
 				resizable : false,

@@ -11,24 +11,33 @@
 		</div>
 		<div class="span5">
 					<label for="BCity" class="float-left">City</label>
-			<input type="text" Required Class="inputEdit float-left width150" name="BCity"
+			<input type="text" Class="inputEdit float-left width150" name="BCity"
 			
 			<%= business.BCity ? "value=" + '"' + business.BCity + '"' : "class='empty'" %>>
 				
 				</div>
 				<div class="span5">
 					<label>State</label>
-			<input type="text" Required Class="inputEdit float-left width50" name="BState" 
+			<input type="text" Class="inputEdit float-left width50" name="BState" 
 					<%= business.BState ? "value=" + '"' + business.BState + '"' : "class='empty'" %>>
 				</div>
+				
 				<div class="span5">
 					<label>Address</label>
-			<input type="text" Required Class="inputEdit" name="BAddress" 
+			<input type="text" Class="inputEdit" name="BAddress" 
 					<%= business.BAddress ? "value=" + '"' + business.BAddress + '"' : "class='empty'" %>>
 				</div>
+				
+				<div class="span5">
+					<label>Zip</label>
+			<input type="text" Class="inputEdit float-left width50" name="BZip" 
+					<%= business.BZip ? "value=" + '"' + business.BZip + '"' : "class='empty'" %>>
+				</div>
+				
+				
 				<div class="span5"> 
 			<label>Phone</label>
-			<input type="text" Number Required Class="inputEdit width100" name="BPhone1" 
+			<input type="text" Number Class="inputEdit width100" name="BPhone1" 
 					<%= business.BPhone1 ? "value=" + '"' + business.BPhone1 + '"' : "class='empty'" %>>
 			
 				</div>
