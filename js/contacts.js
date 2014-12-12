@@ -727,6 +727,14 @@
 					secondary : "ui-icon-triangle-1-s"
 				}
 			});
+			
+			
+
+			$(".draggable").draggable({
+				helper: 'clone'
+			});
+				
+				
 
 			$(".deleteBusinessButton").button({
 				icons : {
@@ -1021,11 +1029,22 @@
 
 		var storeData = $('#storedData')[0];
 
+		$(".droppable").droppable({
+          drop: function (event, ui) {
+//              alert('Dropped ' + ui.draggable.attr('class') + ' onto ' + event.target.id);
+			  var form = ui.draggable.find('.business').find('form');
+			  
+			  alert (form.attr('id'));
+				
+				var data = can.deparam(form.serialize());
+				alert (data.BName);
+				}
+		  
+			});
+
 		$("#test-print").click(function () {
 		
-			$("#testRpt1").printThis({
-				debug : false,
-				importCSS : false,
+			$("#testRpt1").printThis({				importCSS : false,
 				importStyle : false,
 				printContainer : true,
 				pageTitle : "test",
