@@ -1,7 +1,7 @@
 <ul class="nav nav-list">
 	<li class="nav-header">Business</li> 
 	<% $.each(categories, function(i, category){ %>
-		<li class="businessHeader">
+		<li class="businessHeader draggable">
 		<a href="javascript://" data-category="<%= category.BBusId %>">
 			Name: <%= category.BName %>
 			</a>
@@ -14,7 +14,7 @@
 		</li>
 		<div id="menu-container" class="span5"></div>
 		<div class="expander expandLogo"></div>
-		<li class="business">
+		<li id="xyz" class="business">
 		<%== can.view.render('views/businessView.ejs', {business: category}) %>
 		</li>
 		</div>

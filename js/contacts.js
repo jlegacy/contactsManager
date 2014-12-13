@@ -73,6 +73,25 @@
 			}));
 	}
 
+	function displayReport1(data) {
+		can.view.cache = false;
+		$('#testRpt1').html(can.view('views/report1.ejs', {
+				data : data
+			}));
+
+		$("#testRpt1").printThis({
+			importCSS : false,
+			importStyle : false,
+			printContainer : true,
+			pageTitle : "Report1",
+			removeInline : false,
+			printDelay : 333,
+			header : null,
+			formValues : true
+		});
+
+	}
+
 	function ClearAll() {
 		$("#filter li").removeClass('active');
 		$('#contacts').html("");
@@ -728,6 +747,10 @@
 				}
 			});
 
+			$(".draggable").draggable({
+				helper : 'clone'
+			});
+
 			$(".deleteBusinessButton").button({
 				icons : {
 					primary : "ui-icon-gear",
@@ -1021,245 +1044,245 @@
 
 		var storeData = $('#storedData')[0];
 
-		$("#test-print").click(function () {
-		
-			$("#testRpt1").printThis({
-				debug : false,
-				importCSS : false,
-				importStyle : false,
-				printContainer : true,
-				pageTitle : "test",
-				removeInline : false,
-				printDelay : 333,
-				header : null,
-				formValues : true
-			});
+		$(".droppable").droppable({
+			drop : function (event, ui) {
+//				alert('Dropped ' + $(ui.draggable).attr('class') + ' onto ' + event.target.id);
+				var form = $(ui.draggable).next('#menu-container').next().next().find('form');
+				var data = can.deparam(form.serialize());
+
+				switch (event.target.id) {
+				case "report1":
+					displayReport1(data);
+					break;
+
+				}
+			}
 
 		});
 
-			$.ajaxPrefilter(function (options, orig, xhr) {
+		$.ajaxPrefilter(function (options, orig, xhr) {
 
-				if (options.processData
-					 && /^application\/json((\+|;).+)?$/i.test(options.contentType)
-					 && /^(post|put|delete)$/i.test(options.type)) {
-					options.data = JSON.stringify(orig.data);
-				}
-			});
+			if (options.processData
+				 && /^application\/json((\+|;).+)?$/i.test(options.contentType)
+				 && /^(post|put|delete)$/i.test(options.type)) {
+				options.data = JSON.stringify(orig.data);
+			}
+		});
 
-			$("#showAllContacts").click(function () {
+		$("#showAllContacts").click(function () {
 
-				$(this).toggleClass("expandLogo", 0, "shrinkLogo").toggleClass("shrinkLogo", 0, "expandLogo");
-				if ($(this).hasClass("shrinkLogo")) {
-					$('.contact').slideDown(200);
-				}
-				if ($(this).hasClass("expandLogo")) {
-					$('.contact').not('.active').slideUp(200);
-				}
-			});
+			$(this).toggleClass("expandLogo", 0, "shrinkLogo").toggleClass("shrinkLogo", 0, "expandLogo");
+			if ($(this).hasClass("shrinkLogo")) {
+				$('.contact').slideDown(200);
+			}
+			if ($(this).hasClass("expandLogo")) {
+				$('.contact').not('.active').slideUp(200);
+			}
+		});
 
-			$("body").on("click", "#contactSave", function () {
-				var form = $('#create').find('form');
+		$("body").on("click", "#contactSave", function () {
+			var form = $('#create').find('form');
 
-				var data = can.deparam(form.serialize());
-				data.CPhone1 = data.CPhone1.replace(/\D/g, '');
-				data.CPhone2 = data.CPhone2.replace(/\D/g, '');
+			var data = can.deparam(form.serialize());
+			data.CPhone1 = data.CPhone1.replace(/\D/g, '');
+			data.CPhone2 = data.CPhone2.replace(/\D/g, '');
 
-				var x = new Parsley(form);
-				var valid = x.validate();
+			var x = new Parsley(form);
+			var valid = x.validate();
 
-				if (valid) {
-					CreateContactServer(data, function (response) {
-						$('#create').slideUp();
-						LoadContacts($.data($("#storedData")[0], 'business'));
-						if (response) {
-							$.growl({
-								title : "RoloMax",
-								message : "Contact Created..",
-								style : "notice"
-							});
-						} else {
-							$.growl({
-								title : "RoloMax",
-								message : "Error Creating Contact..",
-								style : "warning"
-							});
-						}
-					});
-				}
-			});
-
-			$("body").on("click", "#userDefinedCategorySave", function () {
-				var form = $('#createUserDefinedCategory').find('form');
-
-				var data = can.deparam(form.serialize());
-
-				var x = new Parsley(form);
-				var valid = x.validate();
-
-				if (valid) {
-					CreateUserDefinedCategoryServer(data, function (response) {
-						$('#createUserDefinedCategory').slideUp();
-						if (response) {
-							$.growl({
-								title : "RoloMax",
-								message : "Category Created..",
-								style : "notice"
-							});
-							PopulateUserDefinedCategoriesDialog();
-						} else {
-							$.growl({
-								title : "RoloMax",
-								message : "Error Creating Category..",
-								style : "warning"
-							});
-						}
-					});
-				}
-			});
-
-			$("body").on("click", "#userSave", function () {
-				var form = $('#createUser').find('form');
-				var data = {};
-				var values = can.deparam(form.serialize());
-				CreateUserDefinedServer(values, function (response) {
-					$('#createUser').slideUp();
-					data.Business = $.data($("#storedData")[0], 'business');
-					data.Contact = $.data($("#storedData")[0], 'contact');
-					LoadUserDefined(data);
+			if (valid) {
+				CreateContactServer(data, function (response) {
+					$('#create').slideUp();
+					LoadContacts($.data($("#storedData")[0], 'business'));
 					if (response) {
 						$.growl({
 							title : "RoloMax",
-							message : "User Defined Created..",
+							message : "Contact Created..",
 							style : "notice"
 						});
 					} else {
 						$.growl({
 							title : "RoloMax",
-							message : "Error Creating User Defined..",
+							message : "Error Creating Contact..",
 							style : "warning"
 						});
 					}
 				});
-			});
+			}
+		});
 
-			$("body").on("click", "#contactCancel", function () {
-				HideAddContact();
-			});
+		$("body").on("click", "#userDefinedCategorySave", function () {
+			var form = $('#createUserDefinedCategory').find('form');
 
-			$("body").on("click", "#businessSave", function () {
-				var form = $('#createBusiness').find('form');
-				var data = can.deparam(form.serialize());
+			var data = can.deparam(form.serialize());
 
-				data.BPhone1 = data.BPhone1.replace(/\D/g, '');
-				data.BPhone2 = data.BPhone2.replace(/\D/g, '');
-				data.BFax1 = data.BFax1.replace(/\D/g, '');
-				data.BEmail = "";
+			var x = new Parsley(form);
+			var valid = x.validate();
 
-				var x = new Parsley(form);
-				var valid = x.validate();
+			if (valid) {
+				CreateUserDefinedCategoryServer(data, function (response) {
+					$('#createUserDefinedCategory').slideUp();
+					if (response) {
+						$.growl({
+							title : "RoloMax",
+							message : "Category Created..",
+							style : "notice"
+						});
+						PopulateUserDefinedCategoriesDialog();
+					} else {
+						$.growl({
+							title : "RoloMax",
+							message : "Error Creating Category..",
+							style : "warning"
+						});
+					}
+				});
+			}
+		});
 
-				if (valid) {
-
-					CreateBusinessServer(data, function (result, response) {
-						$('#businessCreate').slideUp();
-						HideAddBusiness();
-						if (response) {
-							$.growl({
-								title : "RoloMax",
-								message : "Business Created..",
-								style : "notice"
-							});
-						} else {
-							$.growl({
-								title : "RoloMax",
-								message : "Error Creating Business..",
-								style : "warning"
-							});
-						}
-						data = {
-							Filter : GetSearchBox()
-						};
-
-						LoadAllBusiness(data);
-
+		$("body").on("click", "#userSave", function () {
+			var form = $('#createUser').find('form');
+			var data = {};
+			var values = can.deparam(form.serialize());
+			CreateUserDefinedServer(values, function (response) {
+				$('#createUser').slideUp();
+				data.Business = $.data($("#storedData")[0], 'business');
+				data.Contact = $.data($("#storedData")[0], 'contact');
+				LoadUserDefined(data);
+				if (response) {
+					$.growl({
+						title : "RoloMax",
+						message : "User Defined Created..",
+						style : "notice"
+					});
+				} else {
+					$.growl({
+						title : "RoloMax",
+						message : "Error Creating User Defined..",
+						style : "warning"
 					});
 				}
 			});
+		});
 
-			$("body").on("click", "#businessCancel", function () {
-				HideAddBusiness();
-			});
+		$("body").on("click", "#contactCancel", function () {
+			HideAddContact();
+		});
 
-			$("body").on("click", "#userCancel", function () {
-				HideAddUser();
-			});
+		$("body").on("click", "#businessSave", function () {
+			var form = $('#createBusiness').find('form');
+			var data = can.deparam(form.serialize());
 
-			$("body").on("click", "#userDefinedCategoryCancel", function () {
-				HideAddUserDefinedCategories();
-			});
+			data.BPhone1 = data.BPhone1.replace(/\D/g, '');
+			data.BPhone2 = data.BPhone2.replace(/\D/g, '');
+			data.BFax1 = data.BFax1.replace(/\D/g, '');
+			data.BEmail = "";
 
-			$("body").on("click", "#new-contact", function () {
+			var x = new Parsley(form);
+			var valid = x.validate();
 
-				ShowAddContact();
-			});
+			if (valid) {
 
-			$("body").on("click", "#new-business", function () {
-				ShowAddBusiness();
-			});
-
-			$("body").on("click", "#new-user", function () {
-				ShowAddUser();
-			});
-
-			$("body").on("click", "#new-category", function () {
-				ShowAddCategory();
-			});
-
-			$("#search-business").click(function () {
-				var data = {};
-				data.Filter = GetSearchBox()
-					LoadAllBusiness(data);
-				$('#contacts').html('');
-				$('#users').html('');
-				$('#create').slideUp(200);
-				$('#createUser').slideUp(200);
-				$.data($("#storedData")[0], "business", '');
-				$.data($("#storedData")[0], "user", '');
-				$.data($("#storedData")[0], "contact", '');
-
-			});
-
-			can.view.cache = false;
-
-			var data = {};
-
-			GetUserDefinedCategoriesServer(data, function (data) {
-				userDefinedFields = data;
-			});
-
-			$("#new-UserDefinedCategory").click(function () {
-				var element = $(this);
-				event.preventDefault();
-
-				$("#UpdateUserCategories").dialog({
-					modal : true,
-					draggable : false,
-					resizable : false,
-					position : ['center', 'center'],
-					show : 'blind',
-					hide : 'blind',
-					width : 575,
-					dialogClass : 'ui-dialog-osx',
-					buttons : {
-						"Cancel" : function () {
-							$(this).dialog("close");
-						}
+				CreateBusinessServer(data, function (result, response) {
+					$('#businessCreate').slideUp();
+					HideAddBusiness();
+					if (response) {
+						$.growl({
+							title : "RoloMax",
+							message : "Business Created..",
+							style : "notice"
+						});
+					} else {
+						$.growl({
+							title : "RoloMax",
+							message : "Error Creating Business..",
+							style : "warning"
+						});
 					}
-				});
+					data = {
+						Filter : GetSearchBox()
+					};
 
-				PopulateUserDefinedCategoriesDialog()
-			});
+					LoadAllBusiness(data);
+
+				});
+			}
+		});
+
+		$("body").on("click", "#businessCancel", function () {
+			HideAddBusiness();
+		});
+
+		$("body").on("click", "#userCancel", function () {
+			HideAddUser();
+		});
+
+		$("body").on("click", "#userDefinedCategoryCancel", function () {
+			HideAddUserDefinedCategories();
+		});
+
+		$("body").on("click", "#new-contact", function () {
+
+			ShowAddContact();
+		});
+
+		$("body").on("click", "#new-business", function () {
+			ShowAddBusiness();
+		});
+
+		$("body").on("click", "#new-user", function () {
+			ShowAddUser();
+		});
+
+		$("body").on("click", "#new-category", function () {
+			ShowAddCategory();
+		});
+
+		$("#search-business").click(function () {
+			var data = {};
+			data.Filter = GetSearchBox()
+				LoadAllBusiness(data);
+			$('#contacts').html('');
+			$('#users').html('');
+			$('#create').slideUp(200);
+			$('#createUser').slideUp(200);
+			$.data($("#storedData")[0], "business", '');
+			$.data($("#storedData")[0], "user", '');
+			$.data($("#storedData")[0], "contact", '');
 
 		});
 
-	})();
+		can.view.cache = false;
+
+		var data = {};
+
+		GetUserDefinedCategoriesServer(data, function (data) {
+			userDefinedFields = data;
+		});
+
+		$("#new-UserDefinedCategory").click(function () {
+			var element = $(this);
+			event.preventDefault();
+
+			$("#UpdateUserCategories").dialog({
+				modal : true,
+				draggable : false,
+				resizable : false,
+				position : ['center', 'center'],
+				show : 'blind',
+				hide : 'blind',
+				width : 575,
+				dialogClass : 'ui-dialog-osx',
+				buttons : {
+					"Cancel" : function () {
+						$(this).dialog("close");
+					}
+				}
+			});
+
+			PopulateUserDefinedCategoriesDialog()
+		});
+
+	});
+
+})();
