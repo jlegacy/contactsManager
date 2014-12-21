@@ -92,6 +92,24 @@
 
 	}
 
+	function displayReport2(data) {
+		can.view.cache = false;
+		$('#testRpt2').html(can.view('views/report2.ejs', {
+				data : data
+			}));
+
+		$("#testRpt2").printThis({
+			importCSS : false,
+			importStyle : false,
+			printContainer : true,
+			pageTitle : "Report2",
+			removeInline : false,
+			printDelay : 333,
+			header : null,
+			formValues : true
+		});
+
+	}
 	function ClearAll() {
 		$("#filter li").removeClass('active');
 		$('#contacts').html("");
@@ -1054,6 +1072,10 @@
 				case "report1":
 					displayReport1(data);
 					break;
+				case "report2":
+					displayReport2(data);
+					break;
+
 
 				}
 			}
