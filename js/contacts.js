@@ -94,7 +94,7 @@
 
 	function displayReport2(data) {
 		can.view.cache = false;
-		$('#testRpt2').html(can.view('views/report2.ejs', {
+		$('#testRpt2').html(can.view('views/report3.ejs', {
 				data : data
 			}));
 
@@ -110,6 +110,8 @@
 		});
 
 	}
+	
+	
 	function ClearAll() {
 		$("#filter li").removeClass('active');
 		$('#contacts').html("");
