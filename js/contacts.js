@@ -94,11 +94,11 @@
 
 	function displayReport2(data) {
 		can.view.cache = false;
-		$('#testRpt2').html(can.view('views/report3.ejs', {
+		$('#testRpt1').html(can.view('views/report2.ejs', {
 				data : data
 			}));
 
-		$("#testRpt2").printThis({
+		$("#testRpt1").printThis({
 			importCSS : false,
 			importStyle : false,
 			printContainer : true,
