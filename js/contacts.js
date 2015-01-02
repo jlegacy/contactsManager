@@ -111,6 +111,58 @@
 
 	}
 	
+		function displayReport3(data) {
+		can.view.cache = false;
+		$('#testRpt1').html(can.view('views/report3.ejs', {
+				data : data
+			}));
+
+		$("#testRpt1").printThis({
+			importCSS : false,
+			importStyle : false,
+			printContainer : true,
+			pageTitle : "Report3",
+			removeInline : false,
+			printDelay : 333,
+			header : null,
+			formValues : true
+		});
+
+	}	function displayReport4(data) {
+		can.view.cache = false;
+		$('#testRpt1').html(can.view('views/report4.ejs', {
+				data : data
+			}));
+
+		$("#testRpt1").printThis({
+			importCSS : false,
+			importStyle : false,
+			printContainer : true,
+			pageTitle : "Report4",
+			removeInline : false,
+			printDelay : 333,
+			header : null,
+			formValues : true
+		});
+
+	}	function displayReport5(data) {
+		can.view.cache = false;
+		$('#testRpt1').html(can.view('views/report5.ejs', {
+				data : data
+			}));
+
+		$("#testRpt1").printThis({
+			importCSS : false,
+			importStyle : false,
+			printContainer : true,
+			pageTitle : "Report5",
+			removeInline : false,
+			printDelay : 333,
+			header : null,
+			formValues : true
+		});
+
+	}
 	
 	function ClearAll() {
 		$("#filter li").removeClass('active');
@@ -1077,6 +1129,16 @@
 				case "report2":
 					displayReport2(data);
 					break;
+				case "report3":
+					displayReport3(data);
+					break;
+				case "report4":
+					displayReport4(data);
+					break;
+				case "report5":
+					displayReport5(data);
+					break;
+				
 
 
 				}
