@@ -1137,7 +1137,6 @@
 					break;
 				case "report5":
 					displayReport5(data);
-					console.log(data);
 					break;
 				
 
