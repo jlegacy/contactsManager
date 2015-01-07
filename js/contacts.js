@@ -1117,6 +1117,7 @@
 		var storeData = $('#storedData')[0];
 
 		$(".droppable").droppable({
+			tolerance: "pointer",
 			drop : function (event, ui) {
 //				alert('Dropped ' + $(ui.draggable).attr('class') + ' onto ' + event.target.id);
 				var form = $(ui.draggable).next('#menu-container').next().next().find('form');
@@ -1137,7 +1138,6 @@
 					break;
 				case "report5":
 					displayReport5(data);
-					console.log(data);
 					break;
 				
 
