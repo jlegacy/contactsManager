@@ -72,9 +72,20 @@
 				categories : data
 			}));
 	}
+	
+	function getCurrentDate()
+	{
+	var currentDt = new Date();
+    var mm = currentDt.getMonth() + 1;
+    var dd = currentDt.getDate();
+    var yyyy = currentDt.getFullYear();
+    var date = mm + '/' + dd + '/' + yyyy;
+	return date;
+	}
 
 	function displayReport1(data) {
 		can.view.cache = false;
+		data.date = getCurrentDate();
 		$('#testRpt1').html(can.view('views/report1.ejs', {
 				data : data
 			}));
