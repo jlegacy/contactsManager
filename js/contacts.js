@@ -105,6 +105,7 @@
 
 	function displayReport2(data) {
 		can.view.cache = false;
+		data.date = getCurrentDate();
 		$('#testRpt1').html(can.view('views/report2.ejs', {
 				data : data
 			}));
@@ -124,6 +125,7 @@
 	
 		function displayReport3(data) {
 		can.view.cache = false;
+		data.date = getCurrentDate();
 		$('#testRpt1').html(can.view('views/report3.ejs', {
 				data : data
 			}));
@@ -141,6 +143,7 @@
 
 	}	function displayReport4(data) {
 		can.view.cache = false;
+		data.date = getCurrentDate();
 		$('#testRpt1').html(can.view('views/report4.ejs', {
 				data : data
 			}));
@@ -158,6 +161,7 @@
 
 	}	function displayReport5(data) {
 		can.view.cache = false;
+		data.date = getCurrentDate();
 		$('#testRpt1').html(can.view('views/report5.ejs', {
 				data : data
 			}));
