@@ -14,6 +14,9 @@
 #header h1 { margin: 0; }
 
 #navigation
+
+
+
 {
 	float: left;
 	width: 100%;
@@ -888,3 +891,7 @@ h1 {
     background-color: rgb(153, 214, 202);
 	height:50px;
 }
+
+#head { display:none; }
+#foot { display:none; }
+
