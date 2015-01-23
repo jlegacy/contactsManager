@@ -44,6 +44,34 @@
 	display: inline;
 }
 
+#navigation ul li .reportbuttons:hover{
+	color:yellow;
+}
+
+#report1:hover{
+background-color:yellow;
+}
+
+#report2:hover{
+background-color:yellow;
+}
+
+#report3:hover{
+background-color:yellow;
+}
+
+#report4:hover{
+background-color:yellow;
+}
+
+#report5:hover{
+background-color:yellow;
+}
+
+.btnhvrcls:hover{
+color:blue;
+}
+
 .search_box{
 	margin-left:5px;
 	margin-top: 7px;
@@ -220,6 +248,9 @@ h1 {
 .deleteUserButton{
 	
 }
+
+
+
 
 
 .contact .buttons {
