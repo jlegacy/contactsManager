@@ -72,15 +72,14 @@
 				categories : data
 			}));
 	}
-	
-	function getCurrentDate()
-	{
-	var currentDt = new Date();
-    var mm = currentDt.getMonth() + 1;
-    var dd = currentDt.getDate();
-    var yyyy = currentDt.getFullYear();
-    var date = mm + '/' + dd + '/' + yyyy;
-	return date;
+
+	function getCurrentDate() {
+		var currentDt = new Date();
+		var mm = currentDt.getMonth() + 1;
+		var dd = currentDt.getDate();
+		var yyyy = currentDt.getFullYear();
+		var date = mm + '/' + dd + '/' + yyyy;
+		return date;
 	}
 
 	function displayReport1(data) {
@@ -122,8 +121,8 @@
 		});
 
 	}
-	
-		function displayReport3(data) {
+
+	function displayReport3(data) {
 		can.view.cache = false;
 		data.date = getCurrentDate();
 		$('#testRpt1').html(can.view('views/report3.ejs', {
@@ -141,7 +140,8 @@
 			formValues : true
 		});
 
-	}	function displayReport4(data) {
+	}
+	function displayReport4(data) {
 		can.view.cache = false;
 		data.date = getCurrentDate();
 		$('#testRpt1').html(can.view('views/report4.ejs', {
@@ -159,7 +159,8 @@
 			formValues : true
 		});
 
-	}	function displayReport5(data) {
+	}
+	function displayReport5(data) {
 		can.view.cache = false;
 		data.date = getCurrentDate();
 		$('#testRpt1').html(can.view('views/report5.ejs', {
@@ -178,7 +179,7 @@
 		});
 
 	}
-	
+
 	function ClearAll() {
 		$("#filter li").removeClass('active');
 		$('#contacts').html("");
@@ -1131,10 +1132,14 @@
 
 		var storeData = $('#storedData')[0];
 
+		$("#container").mouseup(function () {
+			$("#container").find('input').removeClass('btnhvrcls');
+		});
+
 		$(".droppable").droppable({
-			tolerance: "pointer",
+			tolerance : "pointer",
 			drop : function (event, ui) {
-//				alert('Dropped ' + $(ui.draggable).attr('class') + ' onto ' + event.target.id);
+				//				alert('Dropped ' + $(ui.draggable).attr('class') + ' onto ' + event.target.id);
 				var form = $(ui.draggable).next('#menu-container').next().next().find('form');
 				var data = can.deparam(form.serialize());
 
@@ -1154,17 +1159,21 @@
 				case "report5":
 					displayReport5(data);
 					break;
-				
-
 
 				}
+			},
+
+			over : function (event, ui) {
+				console.log(event.target.id);
+
+				$('#' + event.target.id).find('input').addClass('btnhvrcls');
+			},
+
+			out : function (event, ui) {
+				$('#' + event.target.id).find('input').removeClass('btnhvrcls');
 			}
 
 		});
-		
-		
-		
-		
 
 		$.ajaxPrefilter(function (options, orig, xhr) {
 

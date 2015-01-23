@@ -48,28 +48,8 @@
 	color:yellow;
 }
 
-#report1:hover{
-background-color:yellow;
-}
-
-#report2:hover{
-background-color:yellow;
-}
-
-#report3:hover{
-background-color:yellow;
-}
-
-#report4:hover{
-background-color:yellow;
-}
-
-#report5:hover{
-background-color:yellow;
-}
-
-.btnhvrcls:hover{
-color:blue;
+.btnhvrcls{
+background-color:lightgreen;
 }
 
 .search_box{
