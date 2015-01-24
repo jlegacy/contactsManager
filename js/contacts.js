@@ -836,7 +836,8 @@
 			});
 
 			$(".draggable").draggable({
-				helper : 'clone'
+				helper : 'clone',
+				opacity : 0.25
 			});
 
 			$(".deleteBusinessButton").button({
@@ -1128,6 +1129,25 @@
 
 	}
 
+	function checkNeededField(id, value) {
+
+		var data = {};
+
+		$.each(userDefinedFields, function (index, element) {
+			if ((element.XUserDefId) == id) {
+				if (element.XUserDefText == 'Health Group #') {
+					data.HealthGroup = value;
+				}
+				if (element.XUserDefText == 'Health Renewal Date') {
+					data.HealthRenewalDate = value;
+				}
+			};
+
+		});
+
+		return data;
+	}
+
 	$(document).ready(function () {
 
 		var storeData = $('#storedData')[0];
@@ -1139,9 +1159,28 @@
 		$(".droppable").droppable({
 			tolerance : "pointer",
 			drop : function (event, ui) {
+
 				//				alert('Dropped ' + $(ui.draggable).attr('class') + ' onto ' + event.target.id);
-				var form = $(ui.draggable).next('#menu-container').next().next().find('form');
-				var data = can.deparam(form.serialize());
+				//business data//
+				var business_forms = $(ui.draggable).next('#menu-container').next().next().find('form');
+				var data = can.deparam(business_forms.serialize());
+
+				//get needed user data fields//
+				/*user data options*/
+				console.log(userDefinedFields);
+				var user_forms = $('#users').find('form');
+				user_forms.each(function (index) {
+					var user_form_data = can.deparam($(this).serialize());
+					var userData = checkNeededField(user_form_data.UUserDefId, user_form_data.UField);
+					if (userData) 
+					{
+					$.extend( data, userData );
+					}
+
+					
+				});
+				
+				console.log(data);
 
 				switch (event.target.id) {
 				case "report1":

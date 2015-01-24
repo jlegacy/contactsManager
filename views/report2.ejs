@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -532,7 +533,20 @@ w\:* {behavior:url(#default#VML);}
         <p class="MsoNormal" style=
         'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
         <span style=
-        'font-size:12.0pt; font-family:"Times New Roman","serif"'>Date:<%=data.date%></span></p>
+        'font-size:12.0pt; font-family:"Times New Roman","serif"'>Date:<span style='position:absolute !important; left:125px; mso-tab-count:1'><%=data.date %></span>
+        </span></p>
+		
+		 <p class="MsoNormal" style=
+        'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-align: center; text-autospace: none'>
+        <span style=
+        'font-size:12.0pt;font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+
+         <p class="MsoNormal" style=
+        'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
+        <span style=
+        'font-size:12.0pt; font-family:"Times New Roman","serif"'>To:<span style='position:absolute !important; left:125px; mso-tab-count:1'><%=data.BName %></span>
+        </span></p>
+		
 
         <p class="MsoNormal" style=
         'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
@@ -542,54 +556,25 @@ w\:* {behavior:url(#default#VML);}
         <p class="MsoNormal" style=
         'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
         <span style=
-        'font-size:12.0pt; font-family:"Times New Roman","serif"'>To:<span style='mso-tab-count:1'></span></span></p>
+        'font-size:12.0pt; font-family:"Times New Roman","serif"'>From:<span style='position:absolute !important; left:125px; mso-tab-count:1'></span>
+        </span></p>
 
         <p class="MsoNormal" style=
         'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
         <span style=
         'font-size:12.0pt; font-family:"Times New Roman","serif"'>&nbsp;</span></p>
 
-        <p class="MsoNormal" style=
+         <p class="MsoNormal" style=
         'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
         <span style=
-        'font-size:12.0pt; font-family:"Times New Roman","serif"'><%=data.BName %><span style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></p>
+        'font-size:12.0pt; font-family:"Times New Roman","serif"'>Ref:<span style='position:absolute !important; left:125px; mso-tab-count:1'><%=data.BName %></span>
+        </span></p>
 
-        <p class="MsoNormal" style=
+       <p class="MsoNormal" style=
         'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
         <span style=
-        'font-size:12.0pt; font-family:"Times New Roman","serif"'>&nbsp;</span></p>
-
-        <p class="MsoNormal" style=
-        'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
-        <span style=
-        'font-size:12.0pt; font-family:"Times New Roman","serif"'>&nbsp;</span></p>
-
-        <p class="MsoNormal" style=
-        'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
-        <span style=
-        'font-size:12.0pt; font-family:"Times New Roman","serif"'>From:
-        <span style=
-        'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        Carolina Benefit Specialists, Inc.</span></p>
-
-        <p class="MsoNormal" style=
-        'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
-        <span style=
-        'font-size:12.0pt; font-family:"Times New Roman","serif"'>&nbsp;</span></p>
-
-        <p class="MsoNormal" style=
-        'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
-        <span style=
-        'font-size:12.0pt; font-family:"Times New Roman","serif"'>Ref:<span style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <%=data.BName %></span></p>
-
-        <p class="MsoNormal" style=
-        'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
-        <span style=
-        'font-size:12.0pt; font-family:"Times New Roman","serif"'><span style=
-        'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span style='mso-spacerun:yes'>&nbsp;</span><span class=
-        "GramE">3B-HEALTH_GROUP_# <%=data.BBusid %></span></span></p>
+        'font-size:12.0pt; font-family:"Times New Roman","serif"'><span style='position:absolute !important; left:125px; mso-tab-count:1'><%=data.HealthGroup %></span>
+        </span></p>
 
         <p class="MsoNormal" style=
         'font-weight: bold; line-height: 12.0pt; mso-layout-grid-align: none; tab-stops: 76.5pt 135.0pt; text-autospace: none'>
