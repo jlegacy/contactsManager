@@ -14,9 +14,6 @@
 #header h1 { margin: 0; }
 
 #navigation
-
-
-
 {
 	float: left;
 	width: 100%;
@@ -28,6 +25,11 @@
 	margin: 0;
 	padding: 0;
 }
+
+.reports{
+font-size:20px;
+}
+
 .search-section
 {   
 	float:left;
@@ -42,10 +44,6 @@
 {
 	list-style-type: none;
 	display: inline;
-}
-
-#navigation ul li .reportbuttons:hover{
-	color:yellow;
 }
 
 .btnhvrcls{

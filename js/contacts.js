@@ -311,7 +311,11 @@
 	function LoadUserDefined(data) {
 		can.view.cache = false;
 		GetUserServer(data, function (data) {
-			console.log(data);
+			if (data.length > 0) {
+				$('.reports').fadeIn();
+			} else {
+				$('.reports').fadeOut();
+			};
 			$('#users').html("");
 			$('#users').html(can.view('views/userList.ejs', {
 					user : data,
@@ -902,7 +906,7 @@
 
 			});
 
-			$("#filter").on("click", ".businessHeader a", function () {
+			$("#filter").on("mousedown", ".businessHeader a", function () {
 
 				$("#filter li").removeClass('active');
 				var x = $(this).closest('li').addClass('active');
@@ -1150,6 +1154,8 @@
 
 	$(document).ready(function () {
 
+		$('.reports').hide();
+
 		var storeData = $('#storedData')[0];
 
 		$("#container").mouseup(function () {
@@ -1172,14 +1178,12 @@
 				user_forms.each(function (index) {
 					var user_form_data = can.deparam($(this).serialize());
 					var userData = checkNeededField(user_form_data.UUserDefId, user_form_data.UField);
-					if (userData) 
-					{
-					$.extend( data, userData );
+					if (userData) {
+						$.extend(data, userData);
 					}
 
-					
 				});
-				
+
 				console.log(data);
 
 				switch (event.target.id) {
